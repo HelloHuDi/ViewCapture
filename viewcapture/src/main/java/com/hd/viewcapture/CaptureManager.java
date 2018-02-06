@@ -54,14 +54,6 @@ public final class CaptureManager {
         this.fileNameSuffix = fileNameSuffix;
     }
 
-    /**
-     * {@link Bitmap#compress(Bitmap.CompressFormat, int, OutputStream)}
-     * <p>
-     * Hint to the compressor, 0-100. 0 meaning compress for
-     * small size, 100 meaning compress for max quality. Some
-     * formats, like PNG which is lossless, will ignore the
-     * quality setting
-     */
     public CaptureManager setCompressQuality(int quality) {
         this.quality = quality < 0 || quality > 100 ? 100 : quality;
         return this;

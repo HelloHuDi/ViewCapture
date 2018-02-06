@@ -7,9 +7,9 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 
-import com.hd.splashscreen.SimpleConfig;
-import com.hd.splashscreen.SimpleSplashFinishCallback;
-import com.hd.splashscreen.SimpleSplashScreen;
+import com.hd.splashscreen.text.SimpleConfig;
+import com.hd.splashscreen.text.SimpleSplashFinishCallback;
+import com.hd.splashscreen.text.SimpleSplashScreen;
 
 import java.util.List;
 
@@ -31,12 +31,7 @@ public class SplashActivity extends AppCompatActivity implements SimpleSplashFin
         getWindow().addFlags(android.view.WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_splash);
         SimpleSplashScreen screen = findViewById(R.id.screen);
-        SimpleConfig simpleConfig = new SimpleConfig();
-        simpleConfig.setTextSize(25f);
-        simpleConfig.setText("VIEWCAPTURE");
-        simpleConfig.setIconId(R.mipmap.icon);
-        simpleConfig.setIconDelayTime(1500);
-        simpleConfig.setTextColor(R.color.colorAccent);
+        SimpleConfig simpleConfig=new SimpleConfig(this);
         simpleConfig.setCallback(this);
         screen.addConfig(simpleConfig);
         screen.start();

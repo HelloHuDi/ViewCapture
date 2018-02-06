@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.hd.splashscreen.text.SimpleSplashScreen
+<android.support.constraint.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/screen"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.hd.viewcapture.demo.SplashActivity"/>
+    tools:context="com.hd.viewcapture.demo.ListViewActivity">
+
+</android.support.constraint.ConstraintLayout>
