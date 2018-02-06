@@ -16,7 +16,8 @@ import com.hd.viewcapture.ViewCapture;
  * Created by hd on 2018/2/6 .
  * demo
  */
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements CaptureManager.OnSaveResultListener {
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -24,37 +25,41 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void capture(View view) {
-        Intent intent=null;
-        switch (view.getId()){
+        Intent intent = null;
+        switch (view.getId()) {
             case R.id.captureView:
                 captureView(findViewById(R.id.lin));
                 return;
             case R.id.captureScrollView:
-                intent=new Intent(this,ScrollViewActivity.class);
+                intent = new Intent(this, ScrollViewActivity.class);
                 break;
             case R.id.captureHorizontalScrollView:
-                intent=new Intent(this,HorizontalScrollViewActivity.class);
+                intent = new Intent(this, HorizontalScrollViewActivity.class);
                 break;
             case R.id.captureListView:
-                intent=new Intent(this,ListViewActivity.class);
+                intent = new Intent(this, ListViewActivity.class);
                 break;
             case R.id.captureRecyclerView:
-                intent=new Intent(this,RecyclerViewActivity.class);
+                intent = new Intent(this, RecyclerViewActivity.class);
                 break;
             case R.id.captureWebView:
-                intent=new Intent(this,WebViewActivity.class);
+                intent = new Intent(this, WebViewActivity.class);
                 break;
         }
         startActivity(intent);
     }
 
-    private void captureView(View view){
-        ViewCapture.with(view).asPNG().setOnSaveResultListener(new CaptureManager.OnSaveResultListener() {
-            @Override
-            public void onSaveResult(boolean isSaved, String path, Uri uri) {
-                Log.d("tag", "onSaveResult ：" + isSaved + "=" + path + "=" + uri);
-            }
-        }).save();
+    private void captureView(View view) {
+        ViewCapture.with(view)//
+                   .asPNG()//
+                   .setFileName("viewCapture")//
+                   .setDirectoryPath("viewCaptureFile")//
+                   .setOnSaveResultListener(this)//
+                   .save();
     }
 
+    @Override
+    public void onSaveResult(boolean isSaved, String path, Uri uri) {
+        Log.d("tag", "onSaveResult ：" + isSaved + "=" + path + "=" + uri);
+    }
 }

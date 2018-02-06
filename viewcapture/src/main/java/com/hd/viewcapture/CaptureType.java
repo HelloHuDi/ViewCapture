@@ -59,6 +59,12 @@ public final class CaptureType {
 
     @NonNull
     public CaptureManager asJPG() {
+        return asJPG(100);
+    }
+
+    @NonNull
+    public CaptureManager asJPG(int jpgQuality) {
+        captureManager.setCompressJPGQuality(jpgQuality);
         return addSuffix("jpg");
     }
 

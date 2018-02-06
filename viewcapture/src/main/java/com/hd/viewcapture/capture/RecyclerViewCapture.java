@@ -5,7 +5,7 @@ import android.support.v7.widget.RecyclerView;
 
 /**
  * Created by hd on 2018/2/6 .
- * recyclerview capture
+ * RecyclerView capture
  */
 public class RecyclerViewCapture implements Capture<RecyclerView> {
 

@@ -36,7 +36,7 @@ public final class CaptureManager {
 
     private String fileName, fileNameSuffix, directoryPath;
 
-    private int quality=100;
+    private int jpgQuality = 100;
 
     private OnSaveResultListener listener;
 
@@ -54,9 +54,8 @@ public final class CaptureManager {
         this.fileNameSuffix = fileNameSuffix;
     }
 
-    public CaptureManager setCompressQuality(int quality) {
-        this.quality = quality < 0 || quality > 100 ? 100 : quality;
-        return this;
+    void setCompressJPGQuality(int jpgQuality) {
+        this.jpgQuality = jpgQuality < 0 || jpgQuality > 100 ? 100 : jpgQuality;
     }
 
     public CaptureManager setFileName(@NonNull String fileName) {
@@ -157,25 +156,27 @@ public final class CaptureManager {
 
         @Override
         protected Void doInBackground(Void... params) {
-            if(bitmap==null){
+            if (bitmap == null) {
                 notifyListener(false, null, null);
                 return null;
             }
             File directoryFile = new File(Environment.getExternalStorageDirectory(), getDirectoryPath());
-            directoryFile.mkdirs();
-            File imageFile = new File(directoryFile, getFileName());
-            try (OutputStream out = new BufferedOutputStream(new FileOutputStream(imageFile))) {
-                if (fileNameSuffix.contains("png")) {
-                    bitmap.compress(Bitmap.CompressFormat.PNG, quality, out);
-                } else {
-                    bitmap.compress(Bitmap.CompressFormat.JPEG, quality, out);
+            if (directoryFile.mkdirs()) {
+                File imageFile = new File(directoryFile, getFileName());
+                try (OutputStream out = new BufferedOutputStream(new FileOutputStream(imageFile))) {
+                    if (fileNameSuffix.contains("png")) {
+                        bitmap.compress(Bitmap.CompressFormat.PNG, 100, out);
+                    } else {
+                        bitmap.compress(Bitmap.CompressFormat.JPEG, jpgQuality, out);
+                    }
+                } catch (Exception e) {
+                    notifyListener(false, null, null);
                 }
-            } catch (Exception e) {
-                e.printStackTrace();
+                recycleBitmap();
+                MediaScannerConnection.scanFile(context, new String[]{imageFile.toString()}, null, this);
+            } else {
                 notifyListener(false, null, null);
             }
-            recycleBitmap();
-            MediaScannerConnection.scanFile(context, new String[]{imageFile.toString()}, null, this);
             return null;
         }
 
