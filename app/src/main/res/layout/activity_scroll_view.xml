@@ -35,7 +35,7 @@
              <ImageView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
+                android:scaleType="fitXY"
                 android:src="@drawable/lifecycle_states"/>
 
              <TextView
@@ -53,7 +53,6 @@
         android:id="@+id/captureScrollView"
         android:layout_width="match_parent"
         android:layout_height="46dp"
-        android:layout_alignParentBottom="true"
         android:onClick="capture"
         android:text="capture ScrollView"/>
 </LinearLayout>

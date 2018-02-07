@@ -1,10 +1,58 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.hd.viewcapture.demo.HorizontalScrollViewActivity">
+    android:orientation="vertical"
+    android:padding="16dp"
+    tools:context="com.hd.viewcapture.demo.ScrollViewActivity">
 
-</android.support.constraint.ConstraintLayout>
+    <HorizontalScrollView
+        android:id="@+id/horizontalScrollView"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="3"
+        android:paddingLeft="30dp"
+        android:paddingRight="10dp"
+        android:background="@android:color/holo_blue_bright"
+        android:scrollbarStyle="outsideInset">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:background="@android:color/darker_gray"
+                android:ems="5"
+                android:gravity="center"
+                android:text="Handling Lifecycles with Lifecycle-Aware Components"
+                android:textSize="18sp"/>
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:scaleType="fitXY"
+                android:src="@drawable/lifecycle_states"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="@string/scrollview_text"
+                android:textSize="15sp"/>
+        </LinearLayout>
+    </HorizontalScrollView>
+
+    <include layout="@layout/layout_image_capture"/>
+
+    <Button
+        android:id="@+id/captureHorizontalScrollView"
+        android:layout_width="match_parent"
+        android:layout_height="46dp"
+        android:ems="1"
+        android:onClick="capture"
+        android:text="capture horizontalScrollView"/>
+</LinearLayout>
