@@ -13,8 +13,8 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".SplashActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.Splash">
+            android:theme="@style/AppTheme.Splash"
+            android:windowSoftInputMode="stateHidden">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
@@ -27,6 +27,7 @@
         <activity android:name=".ListViewActivity"/>
         <activity android:name=".RecyclerViewActivity"/>
         <activity android:name=".WebViewActivity"/>
+        <activity android:name=".CaptureBitmapActivity"/>
     </application>
 
 </manifest>

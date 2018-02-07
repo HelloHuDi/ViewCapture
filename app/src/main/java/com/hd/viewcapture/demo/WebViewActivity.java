@@ -1,9 +1,9 @@
 package com.hd.viewcapture.demo;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.webkit.WebView;
 
-public class WebViewActivity extends AppCompatActivity {
+public class WebViewActivity extends BaseCaptureActivity<WebView> {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

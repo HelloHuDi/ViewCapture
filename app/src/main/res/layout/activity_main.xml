@@ -1,61 +1,53 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/lin"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/lin"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@android:color/white"
     android:gravity="center"
     android:orientation="vertical"
     android:padding="16dp"
     tools:context="com.hd.viewcapture.demo.MainActivity">
 
+    <EditText
+        android:layout_marginTop="5dp"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:hint="0"/>
+
     <Button
         android:id="@+id/captureView"
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:onClick="capture"
+        style="@style/main_button_style"
         android:text="capture view"/>
 
     <Button
         android:id="@+id/captureScrollView"
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:onClick="capture"
-        android:layout_marginTop="16dp"
+        style="@style/main_button_style"
         android:text="capture ScrollView"/>
 
     <Button
         android:id="@+id/captureHorizontalScrollView"
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:onClick="capture"
-        android:layout_marginTop="16dp"
+        style="@style/main_button_style"
         android:text="capture HorizontalScrollView"/>
 
     <Button
         android:id="@+id/captureListView"
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:onClick="capture"
-        android:layout_marginTop="16dp"
+        style="@style/main_button_style"
         android:text="capture ListView"/>
 
     <Button
         android:id="@+id/captureRecyclerView"
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:onClick="capture"
-        android:layout_marginTop="16dp"
+        style="@style/main_button_style"
         android:text="capture RecyclerView"/>
 
     <Button
         android:id="@+id/captureWebView"
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:onClick="capture"
-        android:layout_marginTop="16dp"
+        style="@style/main_button_style"
         android:text="capture WebView"/>
+
+    <include layout="@layout/layout_image_capture"/>
 
 </LinearLayout>

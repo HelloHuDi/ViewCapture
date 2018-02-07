@@ -1,9 +1,9 @@
 package com.hd.viewcapture.demo;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.widget.ListView;
 
-public class ListViewActivity extends AppCompatActivity {
+public class ListViewActivity extends BaseCaptureActivity<ListView> {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

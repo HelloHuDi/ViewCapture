@@ -1,9 +1,9 @@
 package com.hd.viewcapture.demo;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.widget.HorizontalScrollView;
 
-public class HorizontalScrollViewActivity extends AppCompatActivity {
+public class HorizontalScrollViewActivity extends BaseCaptureActivity<HorizontalScrollView> {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

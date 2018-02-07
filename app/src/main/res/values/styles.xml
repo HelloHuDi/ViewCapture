@@ -10,4 +10,11 @@
 
     <style name="AppTheme.Splash" parent="Theme.AppCompat.Light.NoActionBar"/>
 
+    <style name="main_button_style">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">0dp</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:layout_marginTop">5dp</item>
+        <item name="android:onClick">capture</item>
+    </style>
 </resources>

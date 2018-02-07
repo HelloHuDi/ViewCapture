@@ -2,6 +2,7 @@ package com.hd.viewcapture.capture;
 
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
+import android.support.annotation.NonNull;
 import android.widget.HorizontalScrollView;
 
 /**
@@ -10,11 +11,10 @@ import android.widget.HorizontalScrollView;
  */
 public class HorizontalScrollViewCapture implements Capture<HorizontalScrollView> {
     @Override
-    public Bitmap capture(HorizontalScrollView horizontalScrollView) {
+    public Bitmap capture(@NonNull HorizontalScrollView horizontalScrollView) {
         int w = 0;
         for (int i = 0; i < horizontalScrollView.getChildCount(); i++) {
             w += horizontalScrollView.getChildAt(i).getWidth();
-            //            scrollView.getChildAt(i).setBackgroundColor(Color.parseColor("#ffffff"));
         }
         Bitmap bitmap = Bitmap.createBitmap(w,horizontalScrollView.getHeight(), Bitmap.Config.RGB_565);
         Canvas canvas = new Canvas(bitmap);

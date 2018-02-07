@@ -1,6 +1,7 @@
 package com.hd.viewcapture.capture;
 
 import android.graphics.Bitmap;
+import android.support.annotation.NonNull;
 import android.widget.ListView;
 
 /**
@@ -9,7 +10,7 @@ import android.widget.ListView;
  */
 public class ListViewCapture implements Capture<ListView> {
     @Override
-    public Bitmap capture(ListView listView) {
+    public Bitmap capture(@NonNull ListView listView) {
         return null;
     }
 }

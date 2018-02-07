@@ -1,6 +1,7 @@
 package com.hd.viewcapture.capture;
 
 import android.graphics.Bitmap;
+import android.support.annotation.NonNull;
 import android.webkit.WebView;
 
 /**
@@ -9,7 +10,7 @@ import android.webkit.WebView;
  */
 public class WebViewCapture implements Capture<WebView> {
     @Override
-    public Bitmap capture(WebView webView) {
+    public Bitmap capture(@NonNull WebView webView) {
         return null;
     }
 }

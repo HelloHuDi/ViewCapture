@@ -34,7 +34,7 @@ public final class CaptureManager {
 
     private Bitmap bitmap;
 
-    private String fileName, fileNameSuffix, directoryPath;
+    private String fileName, fileNameSuffix, directoryName;
 
     private int jpgQuality = 100;
 
@@ -63,8 +63,8 @@ public final class CaptureManager {
         return this;
     }
 
-    public CaptureManager setDirectoryPath(@NonNull String directoryPath) {
-        this.directoryPath = directoryPath;
+    public CaptureManager setDirectoryName(@NonNull String directoryName) {
+        this.directoryName = directoryName;
         return this;
     }
 
@@ -100,11 +100,11 @@ public final class CaptureManager {
         return fileNameSuffix;
     }
 
-    private String getDirectoryPath() {
-        if (directoryPath == null || directoryPath.isEmpty()) {
+    private String getDirectoryName() {
+        if (directoryName == null || directoryName.isEmpty()) {
             return Environment.DIRECTORY_PICTURES;
         } else {
-            return directoryPath;
+            return directoryName;
         }
     }
 
@@ -146,7 +146,9 @@ public final class CaptureManager {
     @SuppressLint("StaticFieldLeak")
     private final class AsyncSaveImage extends AsyncTask<Void, Void, Void> //
             implements MediaScannerConnection.OnScanCompletedListener {
+
         private Context context;
+
         private Bitmap bitmap;
 
         private AsyncSaveImage(Context context, Bitmap bitmap) {
@@ -160,24 +162,32 @@ public final class CaptureManager {
                 notifyListener(false, null, null);
                 return null;
             }
-            File directoryFile = new File(Environment.getExternalStorageDirectory(), getDirectoryPath());
-            if (directoryFile.mkdirs()) {
-                File imageFile = new File(directoryFile, getFileName());
-                try (OutputStream out = new BufferedOutputStream(new FileOutputStream(imageFile))) {
-                    if (fileNameSuffix.contains("png")) {
-                        bitmap.compress(Bitmap.CompressFormat.PNG, 100, out);
-                    } else {
-                        bitmap.compress(Bitmap.CompressFormat.JPEG, jpgQuality, out);
-                    }
-                } catch (Exception e) {
+            File directoryFile = new File(Environment.getExternalStorageDirectory(), getDirectoryName());
+            if (directoryFile.exists()) {
+                saveBitmap(directoryFile);
+            } else {
+                if (directoryFile.mkdirs()) {
+                    saveBitmap(directoryFile);
+                } else {
                     notifyListener(false, null, null);
                 }
-                recycleBitmap();
-                MediaScannerConnection.scanFile(context, new String[]{imageFile.toString()}, null, this);
-            } else {
-                notifyListener(false, null, null);
             }
             return null;
+        }
+
+        private void saveBitmap(File directoryFile) {
+            File imageFile = new File(directoryFile, getFileName());
+            try (OutputStream out = new BufferedOutputStream(new FileOutputStream(imageFile))) {
+                if (fileNameSuffix.contains("png")) {
+                    bitmap.compress(Bitmap.CompressFormat.PNG, 100, out);
+                } else {
+                    bitmap.compress(Bitmap.CompressFormat.JPEG, jpgQuality, out);
+                }
+            } catch (Exception e) {
+                notifyListener(false, null, null);
+            }
+            recycleBitmap();
+            MediaScannerConnection.scanFile(context, new String[]{imageFile.toString()}, null, this);
         }
 
         @Override

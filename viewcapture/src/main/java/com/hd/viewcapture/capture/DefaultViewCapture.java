@@ -2,6 +2,7 @@ package com.hd.viewcapture.capture;
 
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
+import android.support.annotation.NonNull;
 import android.view.View;
 
 /**
@@ -11,7 +12,7 @@ import android.view.View;
 public class DefaultViewCapture implements Capture<View> {
 
     @Override
-    public Bitmap capture(View view) {
+    public Bitmap capture(@NonNull View view) {
         Bitmap bitmap = Bitmap.createBitmap(view.getWidth(), view.getHeight(), Bitmap.Config.ARGB_8888);
         Canvas canvas = new Canvas(bitmap);
         view.draw(canvas);
