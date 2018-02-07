@@ -19,16 +19,16 @@ public class HorizontalScrollViewCapture implements Capture<HorizontalScrollView
         try {
             enableSomething(hsv);
             Bitmap b = getViewBpWithoutBottom(hsv);
-            //the height of the scrollView that is visible
+            //the width of the HorizontalScrollView that is visible
             int vW = hsv.getMeasuredWidth();
-            //the total height of the scrollView
+            //the total width of the HorizontalScrollView
             int tW = hsv.getChildAt(0).getMeasuredWidth();
             Bitmap temp;
-            //the total height is more than one screen
+            //the total width is more than one screen
             int a = 0;
             if (tW > vW) {
                 int h = hsv.getMeasuredHeight();
-                //max visible height
+                //max visible width
                 int absVh = vW - hsv.getPaddingLeft() - hsv.getPaddingRight();
                 do {
                     a++;

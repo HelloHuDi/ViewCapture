@@ -52,13 +52,29 @@ public class ScrollViewCapture implements Capture<ScrollView> {
                         }
                         temp = getViewBp(sv);
                     }
-                    b = mergeBitmap(vh, w, temp, 0, sv.getScrollY(), b, 0, 0);
+                    b = mergeBitmap(sv, b, vh, temp, w);
                 } while (vh < th);
             }
             return b;
         } finally {
             restoreSomething(sv, currentX, currentY);
         }
+    }
+
+    @NonNull
+    private Bitmap mergeBitmap(@NonNull ScrollView sv, Bitmap b, int vh, Bitmap temp, int w) {
+        // create the new blank bitmap
+        Bitmap newbmp = Bitmap.createBitmap(w, vh, Bitmap.Config.RGB_565);
+        Canvas cv = new Canvas(newbmp);
+        // draw bg into
+        cv.drawBitmap(temp, 0, sv.getScrollY(), null);
+        // draw fg into
+        cv.drawBitmap(b, 0, 0, null);
+        // save all clip
+        cv.save(Canvas.ALL_SAVE_FLAG);
+        // store
+        cv.restore();
+        return newbmp;
     }
 
     private void restoreSomething(@NonNull ScrollView sv, int currentX, int currentY) {
@@ -105,22 +121,6 @@ public class ScrollViewCapture implements Capture<ScrollView> {
         v.setDrawingCacheEnabled(false);
         v.destroyDrawingCache();
         return bp;
-    }
-
-    private Bitmap mergeBitmap(int newImageH, int newIamgeW, Bitmap background,//
-                               float backX, float backY, Bitmap foreground, float foreX, float foreY) {
-        // create the new blank bitmap
-        Bitmap newbmp = Bitmap.createBitmap(newIamgeW, newImageH, Bitmap.Config.RGB_565);
-        Canvas cv = new Canvas(newbmp);
-        // draw bg into
-        cv.drawBitmap(background, backX, backY, null);
-        // draw fg into
-        cv.drawBitmap(foreground, foreX, foreY, null);
-        // save all clip
-        cv.save(Canvas.ALL_SAVE_FLAG);
-        // store
-        cv.restore();
-        return newbmp;
     }
 
 }
