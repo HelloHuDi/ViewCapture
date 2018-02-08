@@ -1,21 +1,44 @@
-package com.hd.viewcapture.capture;
+package com.hd.viewcapture.capture.view;
 
 import android.graphics.Bitmap;
-import android.graphics.Canvas;
-import android.graphics.Paint;
-import android.graphics.drawable.ColorDrawable;
-import android.graphics.drawable.Drawable;
 import android.support.annotation.NonNull;
-import android.support.v4.util.LruCache;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.View;
+import android.util.Log;
+
+import com.hd.viewcapture.capture.Capture;
+import com.hd.viewcapture.capture.helper.VerticalScrollCaptureHelper;
 
 /**
  * Created by hd on 2018/2/6 .
  * RecyclerView capture
  */
 public class RecyclerViewCapture implements Capture<RecyclerView> {
+    @Override
+    public Bitmap capture(@NonNull RecyclerView recyclerView) {
+        RecyclerView.LayoutManager layoutManager = recyclerView.getLayoutManager();
+        if (layoutManager instanceof GridLayoutManager) {
+            if (layoutManager.canScrollVertically()) {
+                Log.d("GridLayoutManager", "vertical scroll");
+                return new VerticalScrollCaptureHelper<RecyclerView>().scrollCapture(recyclerView);
+            } else if (layoutManager.canScrollHorizontally()) {
+                Log.d("GridLayoutManager", "horizontal scroll");
+            }
+        } else if (layoutManager instanceof LinearLayoutManager) {
+            if (layoutManager.canScrollVertically()) {
+                Log.d("LinearLayoutManager", "vertical scroll");
+                return new VerticalScrollCaptureHelper<RecyclerView>().scrollCapture(recyclerView);
+            } else if (layoutManager.canScrollHorizontally()) {
+                Log.d("LinearLayoutManager", "horizontal scroll");
+            }
+        } else {
 
+        }
+        return null;
+    }
+
+    /*
     @Override
     public Bitmap capture(@NonNull RecyclerView recyclerView) {
         RecyclerView.Adapter adapter = recyclerView.getAdapter();
@@ -59,5 +82,5 @@ public class RecyclerViewCapture implements Capture<RecyclerView> {
             }
         }
         return bigBitmap;
-    }
+    }*/
 }

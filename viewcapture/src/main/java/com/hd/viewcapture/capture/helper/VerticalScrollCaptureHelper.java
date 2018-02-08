@@ -1,77 +1,77 @@
-package com.hd.viewcapture.capture;
+package com.hd.viewcapture.capture.helper;
 
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.os.Build;
 import android.support.annotation.NonNull;
 import android.view.View;
-import android.widget.ScrollView;
+import android.view.ViewGroup;
 
 /**
- * Created by hd on 2018/2/6 .
- * scrollview capture
- * http://www.cnblogs.com/BoBoMEe/p/4556917.html
+ * Created by hd on 2018/2/8 .
+ * vertical Scroll Capture
  */
-public class ScrollViewCapture implements Capture<ScrollView> {
+public class VerticalScrollCaptureHelper<T extends View> implements ScrollCaptureHelper<T> {
+
     @Override
-    public Bitmap capture(@NonNull ScrollView sv) {
-        int currentX = sv.getScrollX();
-        int currentY = sv.getScrollY();
+    public Bitmap scrollCapture(T t) {
+        int currentX = t.getScrollX();
+        int currentY = t.getScrollY();
         try {
-            enableSomething(sv);
-            return scrollCapture(sv);
+            enableSomething(t);
+            return scrollCaptureView(t);
         } finally {
-            restoreSomething(sv, currentX, currentY);
+            restoreSomething(t, currentX, currentY);
         }
     }
 
-    private Bitmap scrollCapture(@NonNull ScrollView sv) {
-        Bitmap b = getViewBpWithoutBottom(sv);
+    private Bitmap scrollCaptureView(@NonNull T t) {
+        Bitmap b = getViewBpWithoutBottom(t);
         //the height of the scrollView that is visible
-        int vh = sv.getMeasuredHeight();
+        int vh = t.getMeasuredHeight();
         //the total height of the scrollView
-        int th = sv.getChildAt(0).getMeasuredHeight();
+        int th = ((ViewGroup)t).getChildAt(0).getMeasuredHeight();
         Bitmap temp;
         //the total height is more than one screen
         int a = 0;
         if (th > vh) {
-            int w = sv.getMeasuredWidth();
+            int w = t.getMeasuredWidth();
             //max visible height
-            int absVh = vh - sv.getPaddingTop() - sv.getPaddingBottom();
+            int absVh = vh - t.getPaddingTop() - t.getPaddingBottom();
             do {
                 a++;
                 int restHeight = th - vh;
                 if (restHeight <= absVh) {
                     if (a % 2 != 0) {
-                        restHeight = restHeight - sv.getPaddingTop() - sv.getPaddingBottom();
+                        restHeight = restHeight - t.getPaddingTop() - t.getPaddingBottom();
                     } else {
-                        restHeight = restHeight + sv.getPaddingTop() + sv.getPaddingBottom();
+                        restHeight = restHeight + t.getPaddingTop() + t.getPaddingBottom();
                     }
-                    sv.scrollBy(0, restHeight);
+                    t.scrollBy(0, restHeight);
                     vh += restHeight;
-                    temp = getViewBp(sv);
+                    temp = getViewBp(t);
                 } else {
-                    sv.scrollBy(0, absVh);
+                    t.scrollBy(0, absVh);
                     if (a / 2 == 0) {
-                        vh += absVh - sv.getPaddingBottom();
+                        vh += absVh - t.getPaddingBottom();
                     } else {
                         vh += absVh;
                     }
-                    temp = getViewBp(sv);
+                    temp = getViewBp(t);
                 }
-                b = mergeBitmap(sv, b, vh, temp, w);
+                b = mergeBitmap(t, b, vh, temp, w);
             } while (vh < th);
         }
         return b;
     }
 
     @NonNull
-    private Bitmap mergeBitmap(@NonNull ScrollView sv, Bitmap b, int vh, Bitmap temp, int w) {
+    private Bitmap mergeBitmap(@NonNull T t, Bitmap b, int vh, Bitmap temp, int w) {
         // create the new blank bitmap
         Bitmap newbmp = Bitmap.createBitmap(w, vh, Bitmap.Config.RGB_565);
         Canvas cv = new Canvas(newbmp);
         // draw bg into
-        cv.drawBitmap(temp, 0, sv.getScrollY(), null);
+        cv.drawBitmap(temp, 0, t.getScrollY(), null);
         // draw fg into
         cv.drawBitmap(b, 0, 0, null);
         // save all clip
@@ -81,20 +81,20 @@ public class ScrollViewCapture implements Capture<ScrollView> {
         return newbmp;
     }
 
-    private void restoreSomething(@NonNull ScrollView sv, int currentX, int currentY) {
-        sv.scrollTo(currentX, currentY);
-        sv.setVerticalScrollBarEnabled(true);
-        sv.setVerticalFadingEdgeEnabled(true);
-        sv.setDrawingCacheEnabled(false);
-        sv.destroyDrawingCache();
+    private void restoreSomething(@NonNull T t, int currentX, int currentY) {
+        t.scrollTo(currentX, currentY);
+        t.setVerticalScrollBarEnabled(true);
+        t.setVerticalFadingEdgeEnabled(true);
+        t.setDrawingCacheEnabled(false);
+        t.destroyDrawingCache();
     }
 
-    private void enableSomething(@NonNull ScrollView sv) {
-        sv.setVerticalScrollBarEnabled(false);
-        sv.setVerticalFadingEdgeEnabled(false);
-        sv.scrollTo(0, 0);
-        sv.setDrawingCacheEnabled(true);
-        sv.buildDrawingCache(true);
+    private void enableSomething(@NonNull T t) {
+        t.setVerticalScrollBarEnabled(false);
+        t.setVerticalFadingEdgeEnabled(false);
+        t.scrollTo(0, 0);
+        t.setDrawingCacheEnabled(true);
+        t.buildDrawingCache(true);
     }
 
     private Bitmap getViewBpWithoutBottom(@NonNull View v) {

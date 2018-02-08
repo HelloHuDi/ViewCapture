@@ -31,7 +31,7 @@ public class RecyclerViewActivity extends BaseCaptureActivity<RecyclerView> {
     private void setRecycleView(int type) {
         switch (type){
             case 0:
-                recyclerView.setLayoutManager(new LinearLayoutManager(this));
+                recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL,false));
                 break;
             case 1:
                 recyclerView.setLayoutManager(new GridLayoutManager(this, 3));
@@ -75,5 +75,13 @@ public class RecyclerViewActivity extends BaseCaptureActivity<RecyclerView> {
                 break;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    class myRecycleManager extends RecyclerView.LayoutManager{
+
+        @Override
+        public RecyclerView.LayoutParams generateDefaultLayoutParams() {
+            return null;
+        }
     }
 }

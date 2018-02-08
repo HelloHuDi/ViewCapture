@@ -20,16 +20,19 @@ public class ListViewActivity extends BaseCaptureActivity<ListView> {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list_view);
         listView = findViewById(R.id.listView);
-        listView.setAdapter(new CommonAdapter<String>(this, R.layout.layout_item, Arrays.asList(getResources().getStringArray(R.array.listView_item))) {
+        CommonAdapter commonAdapter=new CommonAdapter<String>(this, R.layout.layout_item, Arrays.asList(getResources().getStringArray(R.array.listView_item))) {
             @Override
             protected void convert(ViewHolder viewHolder, String item, int position) {
-                ((TextView)viewHolder.getView(R.id.tv)).setText(item);
+                TextView textView = viewHolder.getView(R.id.tv);
+                textView.setText(item);
             }
-        });
-        listView.addFooterView(LayoutInflater.from(this).inflate(R.layout.layout_add_item,null));
+        };
+        listView.setAdapter(commonAdapter);
+        listView.addFooterView(LayoutInflater.from(this).inflate(R.layout.layout_add_item, null));
     }
 
     public void capture(View view) {
         captureView(listView);
     }
+
 }

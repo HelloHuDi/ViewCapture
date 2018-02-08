@@ -1,75 +1,76 @@
-package com.hd.viewcapture.capture;
+package com.hd.viewcapture.capture.helper;
 
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.os.Build;
 import android.support.annotation.NonNull;
 import android.view.View;
-import android.widget.HorizontalScrollView;
+import android.view.ViewGroup;
 
 /**
- * Created by hd on 2018/2/6 .
- * HorizontalScrollView Capture
+ * Created by hd on 2018/2/8 .
+ * horizontal Scroll Capture
  */
-public class HorizontalScrollViewCapture implements Capture<HorizontalScrollView> {
+public class HorizontalScrollCaptureHelper<T extends View> implements ScrollCaptureHelper<T> {
+
     @Override
-    public Bitmap capture(@NonNull HorizontalScrollView hsv) {
-        int currentX = hsv.getScrollX();
-        int currentY = hsv.getScrollY();
+    public Bitmap scrollCapture(T t) {
+        int currentX = t.getScrollX();
+        int currentY = t.getScrollY();
         try {
-            enableSomething(hsv);
-            return scrollCapture(hsv);
+            enableSomething(t);
+            return scrollCaptureView(t);
         } finally {
-            restoreSomething(hsv, currentX, currentY);
+            restoreSomething(t, currentX, currentY);
         }
     }
 
-    private Bitmap scrollCapture(@NonNull HorizontalScrollView hsv) {
-        Bitmap b = getViewBpWithoutBottom(hsv);
-        //the width of the HorizontalScrollView that is visible
-        int vW = hsv.getMeasuredWidth();
-        //the total width of the HorizontalScrollView
-        int tW = hsv.getChildAt(0).getMeasuredWidth();
+    private Bitmap scrollCaptureView(@NonNull T t) {
+        Bitmap b = getViewBpWithoutBottom(t);
+        //the width of the T that is visible
+        int vW = t.getMeasuredWidth();
+        //the total width of the T
+        int tW = ((ViewGroup)t).getChildAt(0).getMeasuredWidth();
         Bitmap temp;
         //the total width is more than one screen
         int a = 0;
         if (tW > vW) {
-            int h = hsv.getMeasuredHeight();
+            int h = t.getMeasuredHeight();
             //max visible width
-            int absVh = vW - hsv.getPaddingLeft() - hsv.getPaddingRight();
+            int absVh = vW - t.getPaddingLeft() - t.getPaddingRight();
             do {
                 a++;
                 int restWidth = tW - vW;
                 if (restWidth <= absVh) {
                     if (a % 2 != 0) {
-                        restWidth = restWidth - hsv.getPaddingLeft() - hsv.getPaddingRight();
+                        restWidth = restWidth - t.getPaddingLeft() - t.getPaddingRight();
                     } else {
-                        restWidth = restWidth + hsv.getPaddingLeft() + hsv.getPaddingRight();
+                        restWidth = restWidth + t.getPaddingLeft() + t.getPaddingRight();
                     }
-                    hsv.scrollBy(restWidth, 0);
+                    t.scrollBy(restWidth, 0);
                     vW += restWidth;
-                    temp = getViewBp(hsv);
+                    temp = getViewBp(t);
                 } else {
-                    hsv.scrollBy(absVh, 0);
+                    t.scrollBy(absVh, 0);
                     if (a / 2 == 0) {
-                        vW += absVh - hsv.getPaddingRight();
+                        vW += absVh - t.getPaddingRight();
                     } else {
                         vW += absVh;
                     }
-                    temp = getViewBp(hsv);
+                    temp = getViewBp(t);
                 }
-                b = mergeBitmap(hsv, b, vW, temp, h);
+                b = mergeBitmap(t, b, vW, temp, h);
             } while (vW < tW);
         }
         return b;
     }
 
     @NonNull
-    private Bitmap mergeBitmap(@NonNull HorizontalScrollView hsv, Bitmap b, int vW, Bitmap temp, int h) {
+    private Bitmap mergeBitmap(@NonNull T t, Bitmap b, int vW, Bitmap temp, int h) {
         Bitmap newbmp = Bitmap.createBitmap(vW, h, Bitmap.Config.RGB_565);
         Canvas cv = new Canvas(newbmp);
         // draw bg into
-        cv.drawBitmap(temp, hsv.getScrollX(), 0, null);
+        cv.drawBitmap(temp, t.getScrollX(), 0, null);
         // draw fg into
         cv.drawBitmap(b, 0, 0, null);
         // save all clip
@@ -79,20 +80,20 @@ public class HorizontalScrollViewCapture implements Capture<HorizontalScrollView
         return newbmp;
     }
 
-    private void restoreSomething(@NonNull HorizontalScrollView hsv, int currentX, int currentY) {
-        hsv.scrollTo(currentX, currentY);
-        hsv.setHorizontalFadingEdgeEnabled(true);
-        hsv.setHorizontalScrollBarEnabled(true);
-        hsv.setDrawingCacheEnabled(false);
-        hsv.destroyDrawingCache();
+    private void restoreSomething(@NonNull T t, int currentX, int currentY) {
+        t.scrollTo(currentX, currentY);
+        t.setHorizontalFadingEdgeEnabled(true);
+        t.setHorizontalScrollBarEnabled(true);
+        t.setDrawingCacheEnabled(false);
+        t.destroyDrawingCache();
     }
 
-    private void enableSomething(@NonNull HorizontalScrollView hsv) {
-        hsv.setHorizontalFadingEdgeEnabled(false);
-        hsv.setHorizontalScrollBarEnabled(false);
-        hsv.scrollTo(0, 0);
-        hsv.setDrawingCacheEnabled(true);
-        hsv.buildDrawingCache(true);
+    private void enableSomething(@NonNull T t) {
+        t.setHorizontalFadingEdgeEnabled(false);
+        t.setHorizontalScrollBarEnabled(false);
+        t.scrollTo(0, 0);
+        t.setDrawingCacheEnabled(true);
+        t.buildDrawingCache(true);
     }
 
     private Bitmap getViewBpWithoutBottom(@NonNull View v) {
@@ -119,7 +120,7 @@ public class HorizontalScrollViewCapture implements Capture<HorizontalScrollView
             v.layout(0, 0, v.getMeasuredWidth(), v.getMeasuredHeight());
         }
         Bitmap bp = Bitmap.createBitmap(v.getDrawingCache(), 0, 0, //
-            v.getMeasuredWidth() - (needRight ? v.getPaddingRight() : 0), v.getMeasuredHeight());
+                                        v.getMeasuredWidth() - (needRight ? v.getPaddingRight() : 0), v.getMeasuredHeight());
         v.setDrawingCacheEnabled(false);
         v.destroyDrawingCache();
         return bp;

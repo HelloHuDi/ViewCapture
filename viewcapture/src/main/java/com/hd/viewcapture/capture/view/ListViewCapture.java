@@ -1,4 +1,4 @@
-package com.hd.viewcapture.capture;
+package com.hd.viewcapture.capture.view;
 
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
@@ -9,6 +9,8 @@ import android.support.annotation.NonNull;
 import android.view.View;
 import android.widget.ListAdapter;
 import android.widget.ListView;
+
+import com.hd.viewcapture.capture.Capture;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,7 +31,7 @@ public class ListViewCapture implements Capture<ListView> {
             int itemsCount = adapter.getCount();
             int allHeight = listView.getPaddingTop() + listView.getPaddingBottom();
             int allWidth = listView.getMeasuredWidth() + listView.getPaddingLeft() + listView.getPaddingRight();
-            for (int i = 0; i < itemsCount; i++) {
+            for (int i = 0; i < adapter.getCount(); i++) {
                 View childView = adapter.getView(i, null, listView);
                 childView.measure(
                         View.MeasureSpec.makeMeasureSpec(listView.getWidth(), View.MeasureSpec.EXACTLY),//

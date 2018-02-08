@@ -1,8 +1,10 @@
-package com.hd.viewcapture.capture;
+package com.hd.viewcapture.capture.view;
 
 import android.graphics.Bitmap;
 import android.support.annotation.NonNull;
 import android.webkit.WebView;
+
+import com.hd.viewcapture.capture.Capture;
 
 /**
  * Created by hd on 2018/2/6 .

@@ -32,8 +32,8 @@ public abstract class BaseCaptureActivity<V extends View> extends BaseActivity i
     }
 
     @Override
-    protected void onDestroy() {
-        super.onDestroy();
+    protected void onPause() {
+        super.onPause();
         uri = null;
     }
 
@@ -61,6 +61,7 @@ public abstract class BaseCaptureActivity<V extends View> extends BaseActivity i
 
     protected void captureView(V v) {
         if (save_to_file) {
+            uri=null;
             ViewCapture.with(v)//
                        .asJPG(80)//
                        .setFileName("viewCapture")//
@@ -68,6 +69,7 @@ public abstract class BaseCaptureActivity<V extends View> extends BaseActivity i
                        .setOnSaveResultListener(this)//
                        .save();
         } else {
+            uri=null;
             loadBitmap(ViewCapture.with(v).getBitmap());
         }
     }

@@ -13,14 +13,15 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:background="@android:color/holo_green_dark"
-        android:dividerHeight="10dp"
         android:padding="10dp"
+        android:dividerHeight="10dp"
         android:divider="@mipmap/ic_launcher"
         android:layout_weight="3"/>
 
     <include layout="@layout/layout_image_capture"/>
 
     <Button
+        android:id="@+id/captureHorizontalScrollView"
         android:layout_width="match_parent"
         android:layout_height="46dp"
         android:ems="1"

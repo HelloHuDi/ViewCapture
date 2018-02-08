@@ -9,12 +9,12 @@ import android.widget.HorizontalScrollView;
 import android.widget.ListView;
 import android.widget.ScrollView;
 
-import com.hd.viewcapture.capture.DefaultViewCapture;
-import com.hd.viewcapture.capture.HorizontalScrollViewCapture;
-import com.hd.viewcapture.capture.ListViewCapture;
-import com.hd.viewcapture.capture.RecyclerViewCapture;
-import com.hd.viewcapture.capture.ScrollViewCapture;
-import com.hd.viewcapture.capture.WebViewCapture;
+import com.hd.viewcapture.capture.view.DefaultViewCapture;
+import com.hd.viewcapture.capture.view.HorizontalScrollViewCapture;
+import com.hd.viewcapture.capture.view.ListViewCapture;
+import com.hd.viewcapture.capture.view.RecyclerViewCapture;
+import com.hd.viewcapture.capture.view.ScrollViewCapture;
+import com.hd.viewcapture.capture.view.WebViewCapture;
 
 /**
  * Created by hd on 2018/2/6 .

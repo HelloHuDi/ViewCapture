@@ -23,5 +23,5 @@
         android:layout_height="46dp"
         android:ems="1"
         android:onClick="capture"
-        android:text="capture listView"/>
+        android:text="capture RecyclerView"/>
 </LinearLayout>

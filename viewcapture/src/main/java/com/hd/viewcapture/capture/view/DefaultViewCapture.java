@@ -1,9 +1,11 @@
-package com.hd.viewcapture.capture;
+package com.hd.viewcapture.capture.view;
 
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.support.annotation.NonNull;
 import android.view.View;
+
+import com.hd.viewcapture.capture.Capture;
 
 /**
  * Created by hd on 2018/2/6 .
