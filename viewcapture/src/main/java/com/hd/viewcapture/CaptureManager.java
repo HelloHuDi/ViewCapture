@@ -1,6 +1,7 @@
 package com.hd.viewcapture;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.media.MediaScannerConnection;
@@ -28,7 +29,7 @@ public final class CaptureManager {
 
     private final String TAG = CaptureManager.class.getSimpleName();
 
-    private View view;
+    private Object t;
 
     private Handler handler;
 
@@ -40,12 +41,11 @@ public final class CaptureManager {
 
     private OnSaveResultListener listener;
 
-    <T extends View> void capture(@NonNull T t, @NonNull Capture<T> capture) {
-        this.view = t;
+    <T> void capture(@NonNull T t, @NonNull Capture<T> capture) {
+        this.t = t;
         bitmap = capture.capture(t);
     }
 
-    @NonNull
     Bitmap getBitmap() {
         return bitmap;
     }
@@ -89,10 +89,14 @@ public final class CaptureManager {
     }
 
     private Context getAppContext() {
-        if (view == null) {
+        if (t == null) {
             throw new NullPointerException("current view is null");
         } else {
-            return view.getContext().getApplicationContext();
+            if (t instanceof View) {
+                return ((View) t).getContext().getApplicationContext();
+            } else {
+                return ((Activity) t).getApplicationContext();
+            }
         }
     }
 

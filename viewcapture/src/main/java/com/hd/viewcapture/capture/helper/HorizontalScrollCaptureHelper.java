@@ -2,7 +2,6 @@ package com.hd.viewcapture.capture.helper;
 
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
-import android.os.Build;
 import android.support.annotation.NonNull;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,7 +29,7 @@ public class HorizontalScrollCaptureHelper<T extends View> implements ScrollCapt
         //the width of the T that is visible
         int vW = t.getMeasuredWidth();
         //the total width of the T
-        int tW = ((ViewGroup)t).getChildAt(0).getMeasuredWidth();
+        int tW = ((ViewGroup) t).getChildAt(0).getMeasuredWidth();
         Bitmap temp;
         //the total width is more than one screen
         int a = 0;
@@ -107,18 +106,11 @@ public class HorizontalScrollCaptureHelper<T extends View> implements ScrollCapt
     private Bitmap getBitmap(@NonNull View v, boolean needRight) {
         v.setDrawingCacheEnabled(true);
         v.buildDrawingCache();
-        if (Build.VERSION.SDK_INT >= 11) {
-            v.measure(
-                    View.MeasureSpec.makeMeasureSpec(v.getWidth(), View.MeasureSpec.EXACTLY),//
-                    View.MeasureSpec.makeMeasureSpec(v.getHeight(), View.MeasureSpec.EXACTLY));
-            v.layout((int) v.getX(), (int) v.getY(), (int) v.getX() + v.getMeasuredWidth(),//
-                     (int) v.getY() + v.getMeasuredHeight());
-        } else {
-            v.measure(
-                    View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED),//
-                    View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED));
-            v.layout(0, 0, v.getMeasuredWidth(), v.getMeasuredHeight());
-        }
+        v.measure(
+                View.MeasureSpec.makeMeasureSpec(v.getWidth(), View.MeasureSpec.EXACTLY),//
+                View.MeasureSpec.makeMeasureSpec(v.getHeight(), View.MeasureSpec.EXACTLY));
+        v.layout((int) v.getX(), (int) v.getY(), (int) v.getX() + v.getMeasuredWidth(),//
+                 (int) v.getY() + v.getMeasuredHeight());
         Bitmap bp = Bitmap.createBitmap(v.getDrawingCache(), 0, 0, //
                                         v.getMeasuredWidth() - (needRight ? v.getPaddingRight() : 0), v.getMeasuredHeight());
         v.setDrawingCacheEnabled(false);

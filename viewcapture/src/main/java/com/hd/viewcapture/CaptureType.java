@@ -80,7 +80,6 @@ public final class CaptureType {
         return captureManager;
     }
 
-    @NonNull
     public Bitmap getBitmap() {
         return captureManager.getBitmap();
     }

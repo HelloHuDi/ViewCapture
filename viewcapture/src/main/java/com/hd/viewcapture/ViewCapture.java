@@ -15,20 +15,20 @@ import android.widget.ScrollView;
 public final class ViewCapture {
 
     @NonNull
-    private static CaptureType getCaptureManager(@NonNull Object view) {
-        CaptureType captureType =new CaptureType();
-        if (view instanceof RecyclerView) {
-            captureType.of((RecyclerView) view);
-        } else if (view instanceof ListView) {
-            captureType.of((ListView) view);
-        } else if (view instanceof ScrollView) {
-            captureType.of((ScrollView) view);
-        } else if (view instanceof HorizontalScrollView) {
-            captureType.of((HorizontalScrollView) view);
-        } else if (view instanceof WebView) {
-            captureType.of((WebView) view);
+    private static CaptureType getCaptureManager(@NonNull Object o) {
+        CaptureType captureType = new CaptureType();
+        if (o instanceof RecyclerView) {
+            captureType.of((RecyclerView) o);
+        } else if (o instanceof ListView) {
+            captureType.of((ListView) o);
+        } else if (o instanceof ScrollView) {
+            captureType.of((ScrollView) o);
+        } else if (o instanceof HorizontalScrollView) {
+            captureType.of((HorizontalScrollView) o);
+        } else if (o instanceof WebView) {
+            captureType.of((WebView) o);
         } else {
-            captureType.of((View) view);
+            captureType.of((View) o);
         }
         return captureType;
     }

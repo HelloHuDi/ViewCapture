@@ -2,13 +2,9 @@ package com.hd.viewcapture.capture.view;
 
 import android.graphics.Bitmap;
 import android.support.annotation.NonNull;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 
 import com.hd.viewcapture.capture.Capture;
-import com.hd.viewcapture.capture.helper.VerticalScrollCaptureHelper;
 
 /**
  * Created by hd on 2018/2/6 .
@@ -17,7 +13,7 @@ import com.hd.viewcapture.capture.helper.VerticalScrollCaptureHelper;
 public class RecyclerViewCapture implements Capture<RecyclerView> {
     @Override
     public Bitmap capture(@NonNull RecyclerView recyclerView) {
-        RecyclerView.LayoutManager layoutManager = recyclerView.getLayoutManager();
+        /*RecyclerView.LayoutManager layoutManager = recyclerView.getLayoutManager();
         if (layoutManager instanceof GridLayoutManager) {
             if (layoutManager.canScrollVertically()) {
                 Log.d("GridLayoutManager", "vertical scroll");
@@ -34,7 +30,8 @@ public class RecyclerViewCapture implements Capture<RecyclerView> {
             }
         } else {
 
-        }
+        }*/
+
         return null;
     }
 
