@@ -17,7 +17,7 @@ import com.hd.viewcapture.ViewCapture;
 
 /**
  * Created by hd on 2018/2/7 .
- * base
+ * base capture
  */
 public abstract class BaseCaptureActivity<V extends View> extends BaseActivity implements CaptureManager.OnSaveResultListener {
 

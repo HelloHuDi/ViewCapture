@@ -1,10 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp"
     tools:context="com.hd.viewcapture.demo.ListViewActivity">
 
-</android.support.constraint.ConstraintLayout>
+    <ListView
+        android:id="@+id/listView"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:background="@android:color/holo_green_dark"
+        android:dividerHeight="10dp"
+        android:padding="10dp"
+        android:divider="@mipmap/ic_launcher"
+        android:layout_weight="3"/>
+
+    <include layout="@layout/layout_image_capture"/>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="46dp"
+        android:ems="1"
+        android:onClick="capture"
+        android:text="capture listView"/>
+</LinearLayout>

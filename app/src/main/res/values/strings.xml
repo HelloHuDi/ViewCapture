@@ -26,4 +26,33 @@
   The android.arch.lifecycle package provides classes and interfaces that let you build lifecycle-aware components—which are components that can automatically adjust their behavior based on the current lifecycle state of an activity or fragment.\n\n
   Most of the app components that are defined in the Android Framework have lifecycles attached to them. Lifecycles are managed by the operating system or the framework code running in your process. They are core to how Android works and your application must respect them. Not doing so may trigger memory leaks or even application crashes.
                  </string>
+
+    <string-array name="listView_item">
+        <item>.NET</item>
+        <item>basic</item>
+        <item>b</item>
+        <item>css</item>
+        <item>c</item>
+        <item>c#</item>
+        <item>c++</item>
+        <item>fortran</item>
+        <item>foxbase</item>
+        <item>html</item>
+        <item>java</item>
+        <item>javaScript</item>
+        <item>jsp</item>
+        <item>latex</item>
+        <item>lua</item>
+        <item>pascal</item>
+        <item>perl</item>
+        <item>php</item>
+        <item>prolog</item>
+        <item>python</item>
+        <item>ruby</item>
+        <item>sgml</item>
+        <item>shell</item>
+        <item>sql</item>
+        <item>tcl/tk</item>
+        <item>vb script</item>
+    </string-array>
 </resources>

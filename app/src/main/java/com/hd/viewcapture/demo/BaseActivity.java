@@ -10,7 +10,7 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 
 /**
  * Created by hd on 2018/2/7 .
- *
+ * base
  */
 public abstract class BaseActivity extends AppCompatActivity {
 

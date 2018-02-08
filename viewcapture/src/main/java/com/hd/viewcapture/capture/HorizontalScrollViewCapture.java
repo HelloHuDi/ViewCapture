@@ -18,46 +18,50 @@ public class HorizontalScrollViewCapture implements Capture<HorizontalScrollView
         int currentY = hsv.getScrollY();
         try {
             enableSomething(hsv);
-            Bitmap b = getViewBpWithoutBottom(hsv);
-            //the width of the HorizontalScrollView that is visible
-            int vW = hsv.getMeasuredWidth();
-            //the total width of the HorizontalScrollView
-            int tW = hsv.getChildAt(0).getMeasuredWidth();
-            Bitmap temp;
-            //the total width is more than one screen
-            int a = 0;
-            if (tW > vW) {
-                int h = hsv.getMeasuredHeight();
-                //max visible width
-                int absVh = vW - hsv.getPaddingLeft() - hsv.getPaddingRight();
-                do {
-                    a++;
-                    int restWidth = tW - vW;
-                    if (restWidth <= absVh) {
-                        if (a % 2 != 0) {
-                            restWidth = restWidth - hsv.getPaddingLeft() - hsv.getPaddingRight();
-                        } else {
-                            restWidth = restWidth + hsv.getPaddingLeft() + hsv.getPaddingRight();
-                        }
-                        hsv.scrollBy(restWidth, 0);
-                        vW += restWidth;
-                        temp = getViewBp(hsv);
-                    } else {
-                        hsv.scrollBy(absVh, 0);
-                        if (a / 2 == 0) {
-                            vW += absVh - hsv.getPaddingRight();
-                        } else {
-                            vW += absVh;
-                        }
-                        temp = getViewBp(hsv);
-                    }
-                    b = mergeBitmap(hsv, b, vW, temp, h);
-                } while (vW < tW);
-            }
-            return b;
+            return scrollCapture(hsv);
         } finally {
             restoreSomething(hsv, currentX, currentY);
         }
+    }
+
+    private Bitmap scrollCapture(@NonNull HorizontalScrollView hsv) {
+        Bitmap b = getViewBpWithoutBottom(hsv);
+        //the width of the HorizontalScrollView that is visible
+        int vW = hsv.getMeasuredWidth();
+        //the total width of the HorizontalScrollView
+        int tW = hsv.getChildAt(0).getMeasuredWidth();
+        Bitmap temp;
+        //the total width is more than one screen
+        int a = 0;
+        if (tW > vW) {
+            int h = hsv.getMeasuredHeight();
+            //max visible width
+            int absVh = vW - hsv.getPaddingLeft() - hsv.getPaddingRight();
+            do {
+                a++;
+                int restWidth = tW - vW;
+                if (restWidth <= absVh) {
+                    if (a % 2 != 0) {
+                        restWidth = restWidth - hsv.getPaddingLeft() - hsv.getPaddingRight();
+                    } else {
+                        restWidth = restWidth + hsv.getPaddingLeft() + hsv.getPaddingRight();
+                    }
+                    hsv.scrollBy(restWidth, 0);
+                    vW += restWidth;
+                    temp = getViewBp(hsv);
+                } else {
+                    hsv.scrollBy(absVh, 0);
+                    if (a / 2 == 0) {
+                        vW += absVh - hsv.getPaddingRight();
+                    } else {
+                        vW += absVh;
+                    }
+                    temp = getViewBp(hsv);
+                }
+                b = mergeBitmap(hsv, b, vW, temp, h);
+            } while (vW < tW);
+        }
+        return b;
     }
 
     @NonNull

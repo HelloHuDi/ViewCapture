@@ -19,46 +19,50 @@ public class ScrollViewCapture implements Capture<ScrollView> {
         int currentY = sv.getScrollY();
         try {
             enableSomething(sv);
-            Bitmap b = getViewBpWithoutBottom(sv);
-            //the height of the scrollView that is visible
-            int vh = sv.getMeasuredHeight();
-            //the total height of the scrollView
-            int th = sv.getChildAt(0).getMeasuredHeight();
-            Bitmap temp;
-            //the total height is more than one screen
-            int a = 0;
-            if (th > vh) {
-                int w = sv.getMeasuredWidth();
-                //max visible height
-                int absVh = vh - sv.getPaddingTop() - sv.getPaddingBottom();
-                do {
-                    a++;
-                    int restHeight = th - vh;
-                    if (restHeight <= absVh) {
-                        if (a % 2 != 0) {
-                            restHeight = restHeight - sv.getPaddingTop() - sv.getPaddingBottom();
-                        } else {
-                            restHeight = restHeight + sv.getPaddingTop() + sv.getPaddingBottom();
-                        }
-                        sv.scrollBy(0, restHeight);
-                        vh += restHeight;
-                        temp = getViewBp(sv);
-                    } else {
-                        sv.scrollBy(0, absVh);
-                        if (a / 2 == 0) {
-                            vh += absVh - sv.getPaddingBottom();
-                        } else {
-                            vh += absVh;
-                        }
-                        temp = getViewBp(sv);
-                    }
-                    b = mergeBitmap(sv, b, vh, temp, w);
-                } while (vh < th);
-            }
-            return b;
+            return scrollCapture(sv);
         } finally {
             restoreSomething(sv, currentX, currentY);
         }
+    }
+
+    private Bitmap scrollCapture(@NonNull ScrollView sv) {
+        Bitmap b = getViewBpWithoutBottom(sv);
+        //the height of the scrollView that is visible
+        int vh = sv.getMeasuredHeight();
+        //the total height of the scrollView
+        int th = sv.getChildAt(0).getMeasuredHeight();
+        Bitmap temp;
+        //the total height is more than one screen
+        int a = 0;
+        if (th > vh) {
+            int w = sv.getMeasuredWidth();
+            //max visible height
+            int absVh = vh - sv.getPaddingTop() - sv.getPaddingBottom();
+            do {
+                a++;
+                int restHeight = th - vh;
+                if (restHeight <= absVh) {
+                    if (a % 2 != 0) {
+                        restHeight = restHeight - sv.getPaddingTop() - sv.getPaddingBottom();
+                    } else {
+                        restHeight = restHeight + sv.getPaddingTop() + sv.getPaddingBottom();
+                    }
+                    sv.scrollBy(0, restHeight);
+                    vh += restHeight;
+                    temp = getViewBp(sv);
+                } else {
+                    sv.scrollBy(0, absVh);
+                    if (a / 2 == 0) {
+                        vh += absVh - sv.getPaddingBottom();
+                    } else {
+                        vh += absVh;
+                    }
+                    temp = getViewBp(sv);
+                }
+                b = mergeBitmap(sv, b, vh, temp, w);
+            } while (vh < th);
+        }
+        return b;
     }
 
     @NonNull
@@ -122,5 +126,4 @@ public class ScrollViewCapture implements Capture<ScrollView> {
         v.destroyDrawingCache();
         return bp;
     }
-
 }
