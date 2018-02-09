@@ -24,7 +24,7 @@ public final class ViewCapture {
     /**
      * capture RecyclerView
      * <p>
-     * currently only support {@link android.support.v7.widget.LinearLayoutManager}
+     * currently only support {@link android.support.v7.widget.LinearLayoutManager#VERTICAL}
      */
     @NonNull
     public static CaptureType<RecyclerView> with(@NonNull RecyclerView view) {

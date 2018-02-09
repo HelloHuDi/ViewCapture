@@ -50,18 +50,18 @@ public abstract class BaseCaptureActivity<V extends View> extends BaseActivity i
     }
 
     public void lookCapture(View view) {
-        if(uri!=null) {
+        if (uri != null) {
             Intent intent = new Intent(this, CaptureBitmapActivity.class);
-            Bundle bundle=new Bundle();
+            Bundle bundle = new Bundle();
             bundle.putParcelable("uri", uri);
-            intent.putExtra("bundle",bundle);
+            intent.putExtra("bundle", bundle);
             startActivity(intent);
         }
     }
 
     protected void captureView(V v) {
         if (save_to_file) {
-            uri=null;
+            uri = null;
             ViewCapture.with(v)//
                        .asJPG(80)//
                        .setFileName("viewCapture")//
@@ -69,7 +69,7 @@ public abstract class BaseCaptureActivity<V extends View> extends BaseActivity i
                        .setOnSaveResultListener(this)//
                        .save();
         } else {
-            uri=null;
+            uri = null;
             loadBitmap(ViewCapture.with(v).getBitmap());
         }
     }
