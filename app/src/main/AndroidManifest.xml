@@ -29,6 +29,8 @@
         <activity android:name=".RecyclerViewActivity"/>
         <activity android:name=".WebViewActivity"/>
         <activity android:name=".CaptureBitmapActivity"/>
+        <activity android:name=".NewApiCaptureActivity">
+        </activity>
     </application>
 
 </manifest>

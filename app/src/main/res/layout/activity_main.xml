@@ -48,6 +48,11 @@
         style="@style/main_button_style"
         android:text="capture WebView"/>
 
+    <Button
+        android:id="@+id/mediaProjection"
+        style="@style/main_button_style"
+        android:text="MediaProjection capture"/>
+
     <include layout="@layout/layout_image_capture"/>
 
 </LinearLayout>

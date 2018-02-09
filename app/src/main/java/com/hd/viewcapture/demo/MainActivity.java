@@ -1,9 +1,11 @@
 package com.hd.viewcapture.demo;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.View;
+import android.widget.Toast;
 
 
 /**
@@ -40,6 +42,14 @@ public class MainActivity extends BaseCaptureActivity<View> {
             case R.id.captureWebView:
                 intent = new Intent(this, WebViewActivity.class);
                 break;
+            case R.id.mediaProjection:
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                    intent = new Intent(this, NewApiCaptureActivity.class);
+                    break;
+                }else{
+                    Toast.makeText(this,"android 5.0+ API",Toast.LENGTH_SHORT).show();
+                    return;
+                }
         }
         startActivity(intent);
     }
