@@ -3,14 +3,12 @@ package com.hd.viewcapture;
 import android.graphics.Bitmap;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
-import android.view.View;
 import android.webkit.WebView;
 import android.widget.HorizontalScrollView;
 import android.widget.ListView;
 import android.widget.ScrollView;
 
 import com.hd.viewcapture.capture.Capture;
-import com.hd.viewcapture.capture.view.ActivityCapture;
 import com.hd.viewcapture.capture.view.DefaultViewCapture;
 import com.hd.viewcapture.capture.view.HorizontalScrollViewCapture;
 import com.hd.viewcapture.capture.view.ListViewCapture;
@@ -42,10 +40,8 @@ public final class CaptureType<T> {
             capture = new HorizontalScrollViewCapture();
         } else if (t instanceof WebView) {
             capture = new WebViewCapture();
-        } else if (t instanceof View) {
-            capture = new DefaultViewCapture();
         } else {
-            capture = new ActivityCapture();
+            capture = new DefaultViewCapture();
         }
         captureManager.into(t, capture);
     }

@@ -1,7 +1,6 @@
 package com.hd.viewcapture;
 
 import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.media.MediaScannerConnection;
@@ -96,11 +95,7 @@ public final class CaptureManager<T> {
         if (t == null) {
             throw new NullPointerException("current view is null");
         } else {
-            if (t instanceof View) {
-                return ((View) t).getContext().getApplicationContext();
-            } else {
-                return ((Activity) t).getApplicationContext();
-            }
+            return ((View) t).getContext().getApplicationContext();
         }
     }
 
@@ -194,7 +189,6 @@ public final class CaptureManager<T> {
             } catch (Exception e) {
                 notifyListener(false, null, null);
             }
-            recycleBitmap();
             MediaScannerConnection.scanFile(context, new String[]{imageFile.toString()}, null, this);
         }
 

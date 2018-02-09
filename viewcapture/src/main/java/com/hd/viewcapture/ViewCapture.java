@@ -1,6 +1,5 @@
 package com.hd.viewcapture;
 
-import android.app.Activity;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -72,14 +71,6 @@ public final class ViewCapture {
     @NonNull
     public static CaptureType<View> with(@NonNull View view) {
         return getCaptureManager(view);
-    }
-
-    /**
-     * capture current window contain status bar information
-     */
-    @NonNull
-    public static CaptureType<Activity> with(@NonNull Activity activity) {
-        return getCaptureManager(activity);
     }
 
 }
