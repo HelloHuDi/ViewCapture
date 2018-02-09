@@ -19,6 +19,7 @@ public class ListViewActivity extends BaseCaptureActivity<ListView> {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list_view);
+        setActionBarTitle("ListView Capture");
         listView = findViewById(R.id.listView);
         CommonAdapter commonAdapter=new CommonAdapter<String>(this, R.layout.layout_item, Arrays.asList(getResources().getStringArray(R.array.listView_item))) {
             @Override

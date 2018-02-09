@@ -24,6 +24,7 @@ public class RecyclerViewActivity extends BaseCaptureActivity<RecyclerView> {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recycler_view);
+        setActionBarTitle("RecyclerView Capture");
         recyclerView=findViewById(R.id.recyclerView);
         setRecycleView(0);
     }

@@ -16,6 +16,7 @@ public class MainActivity extends BaseCaptureActivity<View> {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        setActionBarTitle("View Capture");
     }
 
     public void capture(View view) {

@@ -10,6 +10,7 @@ public class HorizontalScrollViewActivity extends BaseCaptureActivity<Horizontal
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_horizontal_scroll_view);
+        setActionBarTitle("HorizontalScrollView Capture");
     }
 
     public void capture(View view) {

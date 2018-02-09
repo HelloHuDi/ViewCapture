@@ -14,15 +14,21 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
  */
 public abstract class BaseActivity extends AppCompatActivity {
 
-    protected void loadBitmap(Uri uri){
-        loadBitmap(uri,(ImageView) findViewById(R.id.ivView));
+    protected void setActionBarTitle(String title) {
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setTitle(title);
+        }
     }
 
-    protected void loadBitmap(Bitmap bitmap){
-        loadBitmap(bitmap,(ImageView) findViewById(R.id.ivView));
+    protected void loadBitmap(Uri uri) {
+        loadBitmap(uri, (ImageView) findViewById(R.id.ivView));
     }
 
-    protected <T>void loadBitmap(T t,ImageView imageView){
+    protected void loadBitmap(Bitmap bitmap) {
+        loadBitmap(bitmap, (ImageView) findViewById(R.id.ivView));
+    }
+
+    protected <T> void loadBitmap(T t, ImageView imageView) {
         GlideApp.with(this)//
                 .asBitmap()//
                 .load(t)//
