@@ -7,7 +7,9 @@
 <a href="https://github.com/HelloHuDi/ViewCapture/raw/master/app/release/app-release.apk" target="_blank"><img src="https://img.shields.io/badge/demo-v1.0-blue.svg"></img></a>
 </p>
 
-## View,ScrollView,HorizontalScrollView,ListView,RecyclerView,WebView screenshots,RecyclerView currently only support LinearLayoutManager.VERTICAL
+## View,ScrollView,HorizontalScrollView,ListView,RecyclerView,WebView screenshots.
+
+### RecyclerView currently only support LinearLayoutManager.VERTICAL
 
 ## dependencies :
 
@@ -31,9 +33,9 @@ ViewCapture.with(v).getBitmap();
 
 ## screenshots:
 
-<img src="art/hscrollview.gif" width="250px" height="500px"/> <img src="art/listview.gif" width="250px" height="500px"/> <img src="art/recyclerview.gif" width="250px" height="500px"/> 
+<img src="art/hscrollview.gif" width="280px" height="500px"/> <img src="art/listview.gif" width="280px" height="500px"/> <img src="art/recyclerview.gif" width="280px" height="500px"/> 
 
-<img src="art/scrollview.gif" width="250px" height="500px"/> <img src="art/view.gif" width="250px" height="500px"/> <img src="art/webview.gif" width="250px" height="500px"/>
+<img src="art/scrollview.gif" width="280px" height="500px"/> <img src="art/view.gif" width="280px" height="500px"/> <img src="art/webview.gif" width="280px" height="500px"/>
 
 
 ### License
