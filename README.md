@@ -1,5 +1,7 @@
 # ViewCapture
 
-<img src="art/view_capture.gif"/> <img src="art/scrollview_capture.gif"/> <img src="art/horizontalScrollView_capture.gif"/>
+<img src="art/hscrollview.gif" width="300px" height="500px"/> <img src="art/listview.gif" width="300px" height="500px"/> 
 
-<img src="art/listview_capture.gif"/> <img src="art/webview_capture.gif"/>
+<img src="art/recyclerview.gif" width="300px" height="500px"/> <img src="art/scrollview.gif" width="300px" height="500px"/> 
+
+<img src="art/view.gif" width="300px" height="500px"/> <img src="art/webview.gif" width="300px" height="500px"/>
