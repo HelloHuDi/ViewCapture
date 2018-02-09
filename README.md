@@ -14,7 +14,7 @@
 ## dependencies :
 
 ```
-implementation 'com.hd.viewcapture:viewcapture:1.0'
+implementation 'com.hd.viewcapture:viewcapture:1.1'
 ```
 
 ## code :

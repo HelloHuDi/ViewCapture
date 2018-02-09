@@ -6,7 +6,7 @@ def siteUrl = 'https://github.com/HelloHuDi/ViewCapture'
 def gitUrl = 'git@github.com:HelloHuDi/ViewCapture.git'
 Properties properties = new Properties()
 properties.load(project.rootProject.file('local.properties').newDataInputStream())
-version = "1.0"
+version = "1.1"
 group = "com.hd.viewcapture"
 
 android {
@@ -14,8 +14,8 @@ android {
     defaultConfig {
         minSdkVersion 19
         targetSdkVersion 26
-        versionCode 1
-        versionName "1.0"
+        versionCode 11
+        versionName "1.1"
 
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 

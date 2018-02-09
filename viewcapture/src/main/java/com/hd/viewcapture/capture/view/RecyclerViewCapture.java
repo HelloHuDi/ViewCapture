@@ -45,7 +45,7 @@ public class RecyclerViewCapture implements Capture<RecyclerView> {
                 int[] margin = getMargin(holder.itemView);
                 height += itemHeight + margin[0] + margin[1];
             }
-            bigBitmap = Bitmap.createBitmap(allWidth, height, Bitmap.Config.ARGB_8888);
+            bigBitmap = Bitmap.createBitmap(allWidth, height, Bitmap.Config.RGB_565);
             Canvas bigCanvas = new Canvas(bigBitmap);
             Drawable lBackground = recyclerView.getBackground();
             final Rect bounds = new Rect();

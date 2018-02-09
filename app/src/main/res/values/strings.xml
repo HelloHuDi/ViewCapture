@@ -28,6 +28,7 @@
                  </string>
 
     <string-array name="listView_item">
+        <item>第一遍</item>
         <item>.NET</item>
         <item>basic</item>
         <item>b</item>
@@ -54,5 +55,173 @@
         <item>sql</item>
         <item>tcl/tk</item>
         <item>vb script</item>
+
+        <item>第二遍</item>
+        <item>.NET</item>
+        <item>basic</item>
+        <item>b</item>
+        <item>css</item>
+        <item>c</item>
+        <item>c#</item>
+        <item>c++</item>
+        <item>fortran</item>
+        <item>foxbase</item>
+        <item>html</item>
+        <item>java</item>
+        <item>javaScript</item>
+        <item>jsp</item>
+        <item>latex</item>
+        <item>lua</item>
+        <item>pascal</item>
+        <item>perl</item>
+        <item>php</item>
+        <item>prolog</item>
+        <item>python</item>
+        <item>ruby</item>
+        <item>sgml</item>
+        <item>shell</item>
+        <item>sql</item>
+        <item>tcl/tk</item>
+        <item>vb script</item>
+
+        <item>第三遍</item>
+        <item>.NET</item>
+        <item>basic</item>
+        <item>b</item>
+        <item>css</item>
+        <item>c</item>
+        <item>c#</item>
+        <item>c++</item>
+        <item>fortran</item>
+        <item>foxbase</item>
+        <item>html</item>
+        <item>java</item>
+        <item>javaScript</item>
+        <item>jsp</item>
+        <item>latex</item>
+        <item>lua</item>
+        <item>pascal</item>
+        <item>perl</item>
+        <item>php</item>
+        <item>prolog</item>
+        <item>python</item>
+        <item>ruby</item>
+        <item>sgml</item>
+        <item>shell</item>
+        <item>sql</item>
+        <item>tcl/tk</item>
+        <item>vb script</item>
+
+        <item>第四遍</item>
+        <item>.NET</item>
+        <item>basic</item>
+        <item>b</item>
+        <item>css</item>
+        <item>c</item>
+        <item>c#</item>
+        <item>c++</item>
+        <item>fortran</item>
+        <item>foxbase</item>
+        <item>html</item>
+        <item>java</item>
+        <item>javaScript</item>
+        <item>jsp</item>
+        <item>latex</item>
+        <item>lua</item>
+        <item>pascal</item>
+        <item>perl</item>
+        <item>php</item>
+        <item>prolog</item>
+        <item>python</item>
+        <item>ruby</item>
+        <item>sgml</item>
+        <item>shell</item>
+        <item>sql</item>
+        <item>tcl/tk</item>
+        <item>vb script</item>
+<!--
+        <item>第五遍</item>
+        <item>.NET</item>
+        <item>basic</item>
+        <item>b</item>
+        <item>css</item>
+        <item>c</item>
+        <item>c#</item>
+        <item>c++</item>
+        <item>fortran</item>
+        <item>foxbase</item>
+        <item>html</item>
+        <item>java</item>
+        <item>javaScript</item>
+        <item>jsp</item>
+        <item>latex</item>
+        <item>lua</item>
+        <item>pascal</item>
+        <item>perl</item>
+        <item>php</item>
+        <item>prolog</item>
+        <item>python</item>
+        <item>ruby</item>
+        <item>sgml</item>
+        <item>shell</item>
+        <item>sql</item>
+        <item>tcl/tk</item>
+        <item>vb script</item>
+
+        <item>第六遍</item>
+        <item>.NET</item>
+        <item>basic</item>
+        <item>b</item>
+        <item>css</item>
+        <item>c</item>
+        <item>c#</item>
+        <item>c++</item>
+        <item>fortran</item>
+        <item>foxbase</item>
+        <item>html</item>
+        <item>java</item>
+        <item>javaScript</item>
+        <item>jsp</item>
+        <item>latex</item>
+        <item>lua</item>
+        <item>pascal</item>
+        <item>perl</item>
+        <item>php</item>
+        <item>prolog</item>
+        <item>python</item>
+        <item>ruby</item>
+        <item>sgml</item>
+        <item>shell</item>
+        <item>sql</item>
+        <item>tcl/tk</item>
+        <item>vb script</item>
+
+        <item>第七遍</item>
+        <item>.NET</item>
+        <item>basic</item>
+        <item>b</item>
+        <item>css</item>
+        <item>c</item>
+        <item>c#</item>
+        <item>c++</item>
+        <item>fortran</item>
+        <item>foxbase</item>
+        <item>html</item>
+        <item>java</item>
+        <item>javaScript</item>
+        <item>jsp</item>
+        <item>latex</item>
+        <item>lua</item>
+        <item>pascal</item>
+        <item>perl</item>
+        <item>php</item>
+        <item>prolog</item>
+        <item>python</item>
+        <item>ruby</item>
+        <item>sgml</item>
+        <item>shell</item>
+        <item>sql</item>
+        <item>tcl/tk</item>
+        <item>vb script</item>-->
     </string-array>
 </resources>

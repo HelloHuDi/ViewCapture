@@ -43,7 +43,7 @@ public class ListViewCapture implements Capture<ListView> {
                 allHeight += childView.getMeasuredHeight();
             }
             allHeight += (itemsCount - 1) * dividerHeight;
-            Bitmap bigBitmap = Bitmap.createBitmap(allWidth, allHeight, Bitmap.Config.ARGB_8888);
+            Bitmap bigBitmap = Bitmap.createBitmap(allWidth, allHeight, Bitmap.Config.RGB_565);
             Canvas bigCanvas = new Canvas(bigBitmap);
             Paint paint = new Paint();
             int iHeight = listView.getPaddingTop();

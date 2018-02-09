@@ -11,6 +11,7 @@ import android.widget.ScrollView;
 /**
  * Created by hd on 2018/2/6 .
  * view capture
+ * be careful the view not to be too long, watch out for memory leaks {@link OutOfMemoryError}
  */
 public final class ViewCapture {
 
