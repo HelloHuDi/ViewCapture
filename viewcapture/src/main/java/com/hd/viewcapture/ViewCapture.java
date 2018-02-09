@@ -1,5 +1,6 @@
 package com.hd.viewcapture;
 
+import android.app.Activity;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -15,52 +16,70 @@ import android.widget.ScrollView;
 public final class ViewCapture {
 
     @NonNull
-    private static CaptureType getCaptureManager(@NonNull Object o) {
-        CaptureType captureType = new CaptureType();
-        if (o instanceof RecyclerView) {
-            captureType.of((RecyclerView) o);
-        } else if (o instanceof ListView) {
-            captureType.of((ListView) o);
-        } else if (o instanceof ScrollView) {
-            captureType.of((ScrollView) o);
-        } else if (o instanceof HorizontalScrollView) {
-            captureType.of((HorizontalScrollView) o);
-        } else if (o instanceof WebView) {
-            captureType.of((WebView) o);
-        } else {
-            captureType.of((View) o);
-        }
+    private static <T>CaptureType<T> getCaptureManager(@NonNull T t) {
+        CaptureType<T> captureType = new CaptureType<>();
+        captureType.of(t);
         return captureType;
     }
 
+    /**
+     * capture RecyclerView
+     * <p>
+     * currently only support {@link android.support.v7.widget.LinearLayoutManager}
+     */
     @NonNull
-    public static CaptureType with(@NonNull RecyclerView view) {
+    public static CaptureType<RecyclerView> with(@NonNull RecyclerView view) {
         return getCaptureManager(view);
     }
 
+    /**
+     * capture ListView
+     */
     @NonNull
-    public static CaptureType with(@NonNull ListView view) {
+    public static CaptureType<ListView> with(@NonNull ListView view) {
         return getCaptureManager(view);
     }
 
+    /**
+     * capture ScrollView
+     */
     @NonNull
-    public static CaptureType with(@NonNull ScrollView view) {
+    public static CaptureType<ScrollView> with(@NonNull ScrollView view) {
         return getCaptureManager(view);
     }
 
+    /**
+     * capture HorizontalScrollView
+     */
     @NonNull
-    public static CaptureType with(@NonNull HorizontalScrollView view) {
+    public static CaptureType<HorizontalScrollView> with(@NonNull HorizontalScrollView view) {
         return getCaptureManager(view);
     }
 
+    /**
+     * capture WebView
+     * <p>
+     * take case of ,set {@link WebView#enableSlowWholeDocumentDraw()} on onCreate() method
+     */
     @NonNull
-    public static CaptureType with(@NonNull WebView view) {
+    public static CaptureType<WebView> with(@NonNull WebView view) {
         return getCaptureManager(view);
     }
 
+    /**
+     * capture general view
+     */
     @NonNull
-    public static CaptureType with(@NonNull View view) {
+    public static CaptureType<View> with(@NonNull View view) {
         return getCaptureManager(view);
+    }
+
+    /**
+     * capture current window contain status bar information
+     */
+    @NonNull
+    public static CaptureType<Activity> with(@NonNull Activity activity) {
+        return getCaptureManager(activity);
     }
 
 }

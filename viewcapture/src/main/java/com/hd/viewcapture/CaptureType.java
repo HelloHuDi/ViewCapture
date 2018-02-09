@@ -9,6 +9,8 @@ import android.widget.HorizontalScrollView;
 import android.widget.ListView;
 import android.widget.ScrollView;
 
+import com.hd.viewcapture.capture.Capture;
+import com.hd.viewcapture.capture.view.ActivityCapture;
 import com.hd.viewcapture.capture.view.DefaultViewCapture;
 import com.hd.viewcapture.capture.view.HorizontalScrollViewCapture;
 import com.hd.viewcapture.capture.view.ListViewCapture;
@@ -20,36 +22,32 @@ import com.hd.viewcapture.capture.view.WebViewCapture;
  * Created by hd on 2018/2/6 .
  * capture type
  */
-public final class CaptureType {
+public final class CaptureType<T> {
 
-    private CaptureManager captureManager;
+    private CaptureManager<T> captureManager;
 
     CaptureType() {
-        captureManager = new CaptureManager();
+        captureManager = new CaptureManager<>();
     }
 
-    void of(@NonNull RecyclerView view) {
-        captureManager.capture(view, new RecyclerViewCapture());
-    }
-
-    void of(@NonNull ListView view) {
-        captureManager.capture(view, new ListViewCapture());
-    }
-
-    void of(@NonNull ScrollView view) {
-        captureManager.capture(view, new ScrollViewCapture());
-    }
-
-    void of(@NonNull HorizontalScrollView view) {
-        captureManager.capture(view, new HorizontalScrollViewCapture());
-    }
-
-    void of(@NonNull WebView view) {
-        captureManager.capture(view, new WebViewCapture());
-    }
-
-    void of(@NonNull View view) {
-        captureManager.capture(view, new DefaultViewCapture());
+    void of(T t) {
+        Capture capture;
+        if (t instanceof RecyclerView) {
+            capture = new RecyclerViewCapture();
+        } else if (t instanceof ListView) {
+            capture = new ListViewCapture();
+        } else if (t instanceof ScrollView) {
+            capture = new ScrollViewCapture();
+        } else if (t instanceof HorizontalScrollView) {
+            capture = new HorizontalScrollViewCapture();
+        } else if (t instanceof WebView) {
+            capture = new WebViewCapture();
+        } else if (t instanceof View) {
+            capture = new DefaultViewCapture();
+        } else {
+            capture = new ActivityCapture();
+        }
+        captureManager.into(t, capture);
     }
 
     @NonNull

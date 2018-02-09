@@ -25,11 +25,13 @@ import java.io.OutputStream;
  * Created by hd on 2018/2/6 .
  * Capture Manager
  */
-public final class CaptureManager {
+public final class CaptureManager<T> {
 
     private final String TAG = CaptureManager.class.getSimpleName();
 
-    private Object t;
+    private T t;
+
+    private Capture<T> capture;
 
     private Handler handler;
 
@@ -41,12 +43,14 @@ public final class CaptureManager {
 
     private OnSaveResultListener listener;
 
-    <T> void capture(@NonNull T t, @NonNull Capture<T> capture) {
+    void into(@NonNull T t, @NonNull Capture<T> capture) {
         this.t = t;
-        bitmap = capture.capture(t);
+        this.capture = capture;
     }
 
     Bitmap getBitmap() {
+        if (bitmap == null)
+            bitmap = capture.capture(t);
         return bitmap;
     }
 

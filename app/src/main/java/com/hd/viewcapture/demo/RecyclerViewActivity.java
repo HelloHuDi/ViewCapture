@@ -25,28 +25,28 @@ public class RecyclerViewActivity extends BaseCaptureActivity<RecyclerView> {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recycler_view);
         setActionBarTitle("RecyclerView Capture");
-        recyclerView=findViewById(R.id.recyclerView);
+        recyclerView = findViewById(R.id.recyclerView);
         setRecycleView(0);
     }
 
     private void setRecycleView(int type) {
-        switch (type){
+        switch (type) {
             case 0:
-                recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL,false));
+                recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
                 break;
             case 1:
                 recyclerView.setLayoutManager(new GridLayoutManager(this, 3));
                 break;
             case 2:
-                recyclerView.setLayoutManager(new StaggeredGridLayoutManager( 3,StaggeredGridLayoutManager.VERTICAL));
+                recyclerView.setLayoutManager(new StaggeredGridLayoutManager(3, StaggeredGridLayoutManager.VERTICAL));
                 break;
         }
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(new CommonAdapter<String>(this, R.layout.layout_item, //
-                                                          Arrays.asList(getResources().getStringArray(R.array.listView_item))) {
+                  Arrays.asList(getResources().getStringArray(R.array.listView_item))) {
             @Override
             protected void convert(ViewHolder holder, String s, int position) {
-                ((TextView)holder.getView(R.id.tv)).setText(s);
+                ((TextView) holder.getView(R.id.tv)).setText(s);
             }
         });
     }
@@ -64,7 +64,7 @@ public class RecyclerViewActivity extends BaseCaptureActivity<RecyclerView> {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()){
+        switch (item.getItemId()) {
             case R.id.linearLayout:
                 setRecycleView(0);
                 break;
@@ -76,13 +76,5 @@ public class RecyclerViewActivity extends BaseCaptureActivity<RecyclerView> {
                 break;
         }
         return super.onOptionsItemSelected(item);
-    }
-
-    class myRecycleManager extends RecyclerView.LayoutManager{
-
-        @Override
-        public RecyclerView.LayoutParams generateDefaultLayoutParams() {
-            return null;
-        }
     }
 }

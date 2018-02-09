@@ -23,7 +23,7 @@ public class MainActivity extends BaseCaptureActivity<View> {
         Intent intent = null;
         switch (view.getId()) {
             case R.id.captureView:
-                captureView(findViewById(R.id.lin));
+                captureView(findViewById(R.id.lin).getRootView());
                 return;
             case R.id.captureScrollView:
                 intent = new Intent(this, ScrollViewActivity.class);

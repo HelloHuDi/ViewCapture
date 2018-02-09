@@ -52,7 +52,8 @@ public class ListViewCapture implements Capture<ListView> {
             backgroundDrawable.setBounds(bounds);
             backgroundDrawable.draw(bigCanvas);
             for (int i = 0; i < viewList.size(); i++) {
-                Bitmap bmp = viewList.get(i).getDrawingCache();
+                View view = viewList.get(i);
+                Bitmap bmp = view.getDrawingCache();
                 bigCanvas.drawBitmap(bmp, listView.getPaddingLeft(), iHeight, paint);
                 iHeight += bmp.getHeight();
                 if (i < viewList.size() - 1 && dividerHeight > 0 && dividerDrawable != null) {
@@ -61,15 +62,13 @@ public class ListViewCapture implements Capture<ListView> {
                     dividerDrawable.draw(bigCanvas);
                     iHeight += dividerHeight;
                 }
+                view.setDrawingCacheEnabled(false);
+                view.destroyDrawingCache();
                 bmp.recycle();
                 bmp = null;
             }
             return bigBitmap;
         } finally {
-            for (View view : viewList) {
-                view.setDrawingCacheEnabled(false);
-                view.destroyDrawingCache();
-            }
             viewList.clear();
             viewList = null;
         }

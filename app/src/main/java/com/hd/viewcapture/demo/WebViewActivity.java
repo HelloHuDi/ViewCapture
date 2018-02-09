@@ -2,7 +2,6 @@ package com.hd.viewcapture.demo;
 
 import android.os.Build;
 import android.os.Bundle;
-import android.support.annotation.RequiresApi;
 import android.view.View;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
@@ -11,11 +10,12 @@ public class WebViewActivity extends BaseCaptureActivity<WebView> {
 
     private WebView webView;
 
-    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        WebView.enableSlowWholeDocumentDraw();
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            WebView.enableSlowWholeDocumentDraw();
+        }
         setContentView(R.layout.activity_web_view);
         setActionBarTitle("WebView Capture");
         webView=findViewById(R.id.webView);
