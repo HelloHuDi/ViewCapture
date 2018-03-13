@@ -42,15 +42,26 @@ public final class CaptureManager<T> {
 
     private OnSaveResultListener listener;
 
+    private BitmapProcessor bitmapProcessor;
+
     void into(@NonNull T t, @NonNull Capture<T> capture) {
         this.t = t;
         this.capture = capture;
     }
 
     Bitmap getBitmap() {
-        if (bitmap == null)
+        if (bitmap == null) {
             bitmap = capture.capture(t);
+            if (bitmapProcessor != null && bitmap != null) {
+                bitmap = bitmapProcessor.process(bitmap);
+            }
+        }
         return bitmap;
+    }
+
+    public CaptureManager setBitmapProcessor(BitmapProcessor bitmapProcessor) {
+        this.bitmapProcessor = bitmapProcessor;
+        return this;
     }
 
     void setFileNameSuffix(@NonNull String fileNameSuffix) {
@@ -124,8 +135,11 @@ public final class CaptureManager<T> {
     }
 
     public interface OnSaveResultListener {
-
         void onSaveResult(boolean isSaved, String path, Uri uri);
+    }
+
+    public interface BitmapProcessor {
+        Bitmap process(Bitmap raw);
     }
 
     private void notifyListener(final boolean isSaved, final String path, final Uri uri) {
@@ -145,6 +159,7 @@ public final class CaptureManager<T> {
             bitmap.recycle();
         bitmap = null;
     }
+
 
     @SuppressLint("StaticFieldLeak")
     private final class AsyncSaveImage extends AsyncTask<Void, Void, Void> //
