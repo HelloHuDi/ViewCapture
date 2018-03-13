@@ -53,7 +53,11 @@ public final class CaptureManager<T> {
         if (bitmap == null) {
             bitmap = capture.capture(t);
             if (bitmapProcessor != null && bitmap != null) {
-                bitmap = bitmapProcessor.process(bitmap);
+                Bitmap newBitmap = bitmapProcessor.process(bitmap);
+                if (!bitmap.isRecycled()) {
+                    bitmap.recycle();
+                }
+                bitmap = newBitmap;
             }
         }
         return bitmap;
@@ -205,6 +209,16 @@ public final class CaptureManager<T> {
                 notifyListener(false, null, null);
             }
             MediaScannerConnection.scanFile(context, new String[]{imageFile.toString()}, null, this);
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+            if (bitmap != null && !bitmap.isRecycled()) {
+                bitmap.recycle();
+                bitmap = null;
+                CaptureManager.this.bitmap = null;
+            }
         }
 
         @Override
