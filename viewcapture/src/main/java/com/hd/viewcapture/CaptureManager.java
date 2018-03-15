@@ -143,6 +143,7 @@ public final class CaptureManager<T> {
     }
 
     public interface BitmapProcessor {
+        @NonNull
         Bitmap process(Bitmap raw);
     }
 
@@ -159,7 +160,7 @@ public final class CaptureManager<T> {
     }
 
     private void recycleBitmap() {
-        if (bitmap != null)
+        if (bitmap != null && !bitmap.isRecycled())
             bitmap.recycle();
         bitmap = null;
     }

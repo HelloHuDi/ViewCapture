@@ -3,18 +3,20 @@
 </p>
 <h3 align="center">ViewCapture</h3>
 <p align="center">
-<a href="https://github.com/HelloHuDi/ViewCapture/raw/master/app/release/app-release.apk" target="_blank"><img src="https://img.shields.io/badge/release-v1.1-blue.svg"></img></a>
-<a href="https://github.com/HelloHuDi/ViewCapture/raw/master/app/release/app-release.apk" target="_blank"><img src="https://img.shields.io/badge/demo-v1.1-blue.svg"></img></a>
+<a href="https://github.com/HelloHuDi/ViewCapture/raw/master/app/release/app-release.apk" target="_blank"><img src="https://img.shields.io/badge/release-v1.2-blue.svg"></img></a>
+<a href="https://github.com/HelloHuDi/ViewCapture/raw/master/app/release/app-release.apk" target="_blank"><img src="https://img.shields.io/badge/demo-v1.2-blue.svg"></img></a>
 </p>
 
-## View,ScrollView,HorizontalScrollView,ListView,RecyclerView,WebView screenshots.
+## provided View, ScrollView, HorizontalScrollView, ListView, RecyclerView, WebView screenshots.
 
 ### RecyclerView currently only support LinearLayoutManager.VERTICAL
+
+### support android sdk version 19+
 
 ## dependencies :
 
 ```
-implementation 'com.hd.viewcapture:viewcapture:1.1'
+implementation 'com.hd.viewcapture:viewcapture:1.2'
 ```
 
 ## code :

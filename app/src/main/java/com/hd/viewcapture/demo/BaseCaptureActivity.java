@@ -1,8 +1,14 @@
 package com.hd.viewcapture.demo;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
+import android.graphics.ColorMatrix;
+import android.graphics.ColorMatrixColorFilter;
+import android.graphics.Paint;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.util.Log;
 import android.view.Menu;
@@ -19,7 +25,8 @@ import com.hd.viewcapture.ViewCapture;
  * Created by hd on 2018/2/7 .
  * base capture
  */
-public abstract class BaseCaptureActivity<V extends View> extends BaseActivity implements CaptureManager.OnSaveResultListener {
+public abstract class BaseCaptureActivity<V extends View> extends BaseActivity //
+        implements CaptureManager.OnSaveResultListener, CaptureManager.BitmapProcessor {
 
     private boolean save_to_file = true;
 
@@ -60,16 +67,16 @@ public abstract class BaseCaptureActivity<V extends View> extends BaseActivity i
     }
 
     protected void captureView(V v) {
+        uri = null;
         if (save_to_file) {
-            uri = null;
             ViewCapture.with(v)//
                        .asJPG(80)//
                        .setFileName("viewCapture")//
                        .setDirectoryName("viewCaptureFile")//
                        .setOnSaveResultListener(this)//
+                       .setBitmapProcessor(this)//
                        .save();
         } else {
-            uri = null;
             loadBitmap(ViewCapture.with(v).getBitmap());
         }
     }
@@ -81,5 +88,22 @@ public abstract class BaseCaptureActivity<V extends View> extends BaseActivity i
         Log.d("tag", logStr);
         Toast.makeText(this, logStr, Toast.LENGTH_SHORT).show();
         loadBitmap(uri);
+    }
+
+    @NonNull
+    @Override
+    public Bitmap process(Bitmap raw) {
+        //Gray level
+        int width = raw.getWidth();
+        int height = raw.getHeight();
+        Bitmap bmpGray = Bitmap.createBitmap(width, height, Bitmap.Config.RGB_565);
+        Canvas c = new Canvas(bmpGray);
+        Paint paint = new Paint();
+        ColorMatrix cm = new ColorMatrix();
+        cm.setSaturation(0);
+        ColorMatrixColorFilter f = new ColorMatrixColorFilter(cm);
+        paint.setColorFilter(f);
+        c.drawBitmap(raw, 0, 0, paint);
+        return bmpGray;
     }
 }
