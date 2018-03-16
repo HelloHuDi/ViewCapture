@@ -7,6 +7,8 @@
 <a href="https://github.com/HelloHuDi/ViewCapture/raw/master/app/release/app-release.apk" target="_blank"><img src="https://img.shields.io/badge/demo-v1.2-blue.svg"></img></a>
 </p>
 
+# because of the jcenter version of the conflict, the project is abnormally on the dependency, the maintenance time will take 1-2 days
+
 ## provided View, ScrollView, HorizontalScrollView, ListView, RecyclerView, WebView screenshots.
 
 ### RecyclerView currently only support LinearLayoutManager.VERTICAL
