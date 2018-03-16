@@ -54,18 +54,11 @@ public final class CaptureManager<T> {
             bitmap = capture.capture(t);
             if (bitmapProcessor != null && bitmap != null) {
                 Bitmap newBitmap = bitmapProcessor.process(bitmap);
-                if (!bitmap.isRecycled()) {
-                    bitmap.recycle();
-                }
+                recycleBitmap();
                 bitmap = newBitmap;
             }
         }
         return bitmap;
-    }
-
-    public CaptureManager setBitmapProcessor(BitmapProcessor bitmapProcessor) {
-        this.bitmapProcessor = bitmapProcessor;
-        return this;
     }
 
     void setFileNameSuffix(@NonNull String fileNameSuffix) {
@@ -97,12 +90,18 @@ public final class CaptureManager<T> {
         return this;
     }
 
+    public CaptureManager setBitmapProcessor(BitmapProcessor bitmapProcessor) {
+        this.bitmapProcessor = bitmapProcessor;
+        return this;
+    }
+
     public void save() {
         if (Utils.isExternalStorageReady() && Utils.isPermissionGranted(getAppContext())) {
             AsyncSaveImage asyncSaveBitmap = new AsyncSaveImage(getAppContext(), getBitmap());
             asyncSaveBitmap.execute();
         } else {
             Log.e(TAG, "ViewCapture couldn't save. Make sure permission to write to storage is granted");
+            notifyListener(false, null, null);
         }
     }
 
@@ -143,20 +142,23 @@ public final class CaptureManager<T> {
     }
 
     public interface BitmapProcessor {
-        @NonNull
-        Bitmap process(Bitmap raw);
+        @NonNull Bitmap process(Bitmap raw);
     }
 
     private void notifyListener(final boolean isSaved, final String path, final Uri uri) {
+        Runtime.getRuntime().gc();
         if (listener != null) {
             handler.post(new Runnable() {
                 @Override
                 public void run() {
                     listener.onSaveResult(isSaved, path, uri);
+                    setOnSaveResultListener(null);
                 }
             });
         }
+        System.gc();
         recycleBitmap();
+        System.runFinalization();
     }
 
     private void recycleBitmap() {
@@ -164,7 +166,6 @@ public final class CaptureManager<T> {
             bitmap.recycle();
         bitmap = null;
     }
-
 
     @SuppressLint("StaticFieldLeak")
     private final class AsyncSaveImage extends AsyncTask<Void, Void, Void> //
@@ -207,9 +208,10 @@ public final class CaptureManager<T> {
                     bitmap.compress(Bitmap.CompressFormat.JPEG, jpgQuality, out);
                 }
             } catch (Exception e) {
-                notifyListener(false, null, null);
+                Log.e(TAG, "save bitmap error :"+e);
+            }finally {
+                MediaScannerConnection.scanFile(context, new String[]{imageFile.toString()}, null, this);
             }
-            MediaScannerConnection.scanFile(context, new String[]{imageFile.toString()}, null, this);
         }
 
         @Override
@@ -218,8 +220,8 @@ public final class CaptureManager<T> {
             if (bitmap != null && !bitmap.isRecycled()) {
                 bitmap.recycle();
                 bitmap = null;
-                CaptureManager.this.bitmap = null;
             }
+            CaptureManager.this.recycleBitmap();
         }
 
         @Override
