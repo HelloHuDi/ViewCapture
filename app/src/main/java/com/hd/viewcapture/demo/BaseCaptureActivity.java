@@ -8,6 +8,7 @@ import android.graphics.ColorMatrixColorFilter;
 import android.graphics.Paint;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.util.Log;
@@ -20,6 +21,11 @@ import android.widget.Toast;
 import com.hd.viewcapture.CaptureManager;
 import com.hd.viewcapture.ViewCapture;
 
+import java.io.File;
+
+import top.zibin.luban.Luban;
+import top.zibin.luban.OnCompressListener;
+
 
 /**
  * Created by hd on 2018/2/7 .
@@ -31,6 +37,8 @@ public abstract class BaseCaptureActivity<V extends View> extends BaseActivity /
     private boolean save_to_file = true;
 
     private Uri uri;
+
+    private final String directoryName="viewCaptureFile";
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -72,7 +80,7 @@ public abstract class BaseCaptureActivity<V extends View> extends BaseActivity /
             ViewCapture.with(v)//
                        .asJPG(80)//
                        .setFileName("viewCapture")//
-                       .setDirectoryName("viewCaptureFile")//
+                       .setDirectoryName(directoryName)//
                        .setOnSaveResultListener(this)//
                        .setBitmapProcessor(this)//
                        .save();
@@ -87,7 +95,36 @@ public abstract class BaseCaptureActivity<V extends View> extends BaseActivity /
         this.uri = uri;
         Log.d("tag", logStr);
         Toast.makeText(this, logStr, Toast.LENGTH_SHORT).show();
-        loadBitmap(uri);
+        createLuban(path,uri);
+    }
+
+    private void createLuban(final String path, final Uri uri) {
+        File directoryFile = new File(Environment.getExternalStorageDirectory()+File.separator+directoryName, "compress");
+        if (!directoryFile.exists()) {
+            boolean dirs=directoryFile.mkdirs();
+        }
+        Luban.with(getApplicationContext())//
+             .load(path) //
+             .ignoreBy(80) //
+             .setTargetDir(directoryFile.getAbsolutePath())
+             .setCompressListener(new OnCompressListener() {
+                 @Override
+                 public void onStart() {
+                     Log.d("Luban","start compress");
+                 }
+
+                 @Override
+                 public void onSuccess(File file) {
+                     Log.d("Luban","compress success");
+                     loadBitmap(Uri.fromFile(file));
+                 }
+
+                 @Override
+                 public void onError(Throwable e) {
+                     Log.d("Luban","compress error");
+                     loadBitmap(uri);
+                 }
+             }).launch();
     }
 
     @NonNull
