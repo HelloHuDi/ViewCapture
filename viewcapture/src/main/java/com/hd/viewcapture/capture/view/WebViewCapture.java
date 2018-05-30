@@ -16,13 +16,18 @@ import com.hd.viewcapture.capture.Capture;
  * Created by hd on 2018/2/6 .
  * WebView Capture
  */
-public class WebViewCapture implements Capture<WebView> {
+public class WebViewCapture extends Capture<WebView> {
+
     @Override
     public Bitmap capture(@NonNull WebView webView) {
+        Bitmap bitmap;
         if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.KITKAT) {
-            return captureWebView(webView);
+            bitmap = captureWebView(webView);
+        } else {
+            bitmap = captureWebView2(webView);
         }
-        return captureWebView2(webView);
+        report(bitmap);
+        return bitmap;
     }
 
     private Bitmap captureWebView(WebView webView) {

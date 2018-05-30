@@ -2,9 +2,8 @@ package com.hd.viewcapture.demo;
 
 import android.os.Bundle;
 import android.view.View;
-import android.widget.ScrollView;
 
-public class ScrollViewActivity extends BaseCaptureActivity<ScrollView> {
+public class ScrollViewActivity extends BaseCaptureActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -14,6 +13,6 @@ public class ScrollViewActivity extends BaseCaptureActivity<ScrollView> {
     }
 
     public void capture(View view) {
-        captureView((ScrollView) findViewById(R.id.scrollView));
+        captureView(findViewById(R.id.scrollView));
     }
 }

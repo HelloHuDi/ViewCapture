@@ -11,9 +11,11 @@ import com.hd.viewcapture.capture.helper.VerticalScrollCaptureHelper;
  * Created by hd on 2018/2/6 .
  * scrollview capture
  */
-public class ScrollViewCapture implements Capture<ScrollView> {
+public class ScrollViewCapture extends Capture<ScrollView> {
     @Override
     public Bitmap capture(@NonNull ScrollView scrollView) {
-        return new VerticalScrollCaptureHelper<ScrollView>().scrollCapture(scrollView);
+        Bitmap bitmap = new VerticalScrollCaptureHelper<ScrollView>().scrollCapture(scrollView);
+        report(bitmap);
+        return bitmap;
     }
 }

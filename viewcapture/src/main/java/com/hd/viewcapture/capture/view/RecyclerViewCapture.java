@@ -17,7 +17,7 @@ import com.hd.viewcapture.capture.Capture;
  * Created by hd on 2018/2/6 .
  * RecyclerView capture
  */
-public class RecyclerViewCapture implements Capture<RecyclerView> {
+public class RecyclerViewCapture extends Capture<RecyclerView> {
 
     @Override
     public Bitmap capture(@NonNull RecyclerView recyclerView) {
@@ -59,15 +59,16 @@ public class RecyclerViewCapture implements Capture<RecyclerView> {
                 int[] margin = getMargin(view);
                 int topMargin = margin[0];
                 int bottomMargin = +margin[1];
-                Bitmap bitmap=view.getDrawingCache();
+                Bitmap bitmap = view.getDrawingCache();
                 bigCanvas.drawBitmap(bitmap, recyclerView.getPaddingLeft(), iHeight + topMargin, paint);
                 iHeight += view.getHeight() + topMargin + bottomMargin;
                 view.setDrawingCacheEnabled(false);
                 view.destroyDrawingCache();
                 bitmap.recycle();
-                bitmap=null;
+                bitmap = null;
             }
         }
+        report(bigBitmap);
         return bigBitmap;
     }
 

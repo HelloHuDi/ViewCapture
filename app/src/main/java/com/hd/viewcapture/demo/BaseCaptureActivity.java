@@ -1,5 +1,6 @@
 package com.hd.viewcapture.demo;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
@@ -7,10 +8,12 @@ import android.graphics.ColorMatrix;
 import android.graphics.ColorMatrixColorFilter;
 import android.graphics.Paint;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.annotation.RequiresApi;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -19,7 +22,9 @@ import android.view.WindowManager;
 import android.widget.Toast;
 
 import com.hd.viewcapture.CaptureManager;
+import com.hd.viewcapture.CaptureType;
 import com.hd.viewcapture.ViewCapture;
+import com.hd.viewcapture.capture.helper.CaptureCallback;
 
 import java.io.File;
 
@@ -31,7 +36,7 @@ import top.zibin.luban.OnCompressListener;
  * Created by hd on 2018/2/7 .
  * base capture
  */
-public abstract class BaseCaptureActivity<V extends View> extends BaseActivity //
+public abstract class BaseCaptureActivity extends BaseActivity //
         implements CaptureManager.OnSaveResultListener, CaptureManager.BitmapProcessor {
 
     private boolean save_to_file = true;
@@ -74,18 +79,33 @@ public abstract class BaseCaptureActivity<V extends View> extends BaseActivity /
         }
     }
 
-    protected void captureView(V v) {
+    protected <V extends View>void captureView(V v) {
+        captureView(ViewCapture.with(v));
+    }
+
+    @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
+    protected void captureView(Activity activity) {
+        captureView(ViewCapture.with(activity));
+    }
+
+    private void captureView(CaptureType captureType){
         uri = null;
         if (save_to_file) {
-            ViewCapture.with(v)//
-                       .asJPG(80)//
+            captureType.asJPG(80)//
                        .setFileName("viewCapture")//
                        .setDirectoryName(directoryName)//
                        .setOnSaveResultListener(this)//
                        .setBitmapProcessor(this)//
                        .save();
         } else {
-            loadBitmap(ViewCapture.with(v).getBitmap());
+            captureType.getBitmap(new CaptureCallback() {
+                @Override
+                public void report(@Nullable Bitmap bitmap) {
+                    loadBitmap(bitmap);
+                }
+            });
+            //only capture view
+            //loadBitmap(captureType.getBitmap());
         }
     }
 

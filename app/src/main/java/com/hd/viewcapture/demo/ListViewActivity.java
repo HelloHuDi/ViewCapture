@@ -11,7 +11,7 @@ import com.zhy.adapter.abslistview.ViewHolder;
 
 import java.util.Arrays;
 
-public class ListViewActivity extends BaseCaptureActivity<ListView> {
+public class ListViewActivity extends BaseCaptureActivity {
 
     private ListView listView;
 

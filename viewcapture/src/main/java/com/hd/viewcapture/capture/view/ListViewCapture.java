@@ -19,7 +19,7 @@ import java.util.List;
  * Created by hd on 2018/2/6 .
  * ListView Capture
  */
-public class ListViewCapture implements Capture<ListView> {
+public class ListViewCapture extends Capture<ListView> {
     @Override
     public Bitmap capture(@NonNull ListView listView) {
         List<View> viewList = new ArrayList<>();
@@ -67,6 +67,7 @@ public class ListViewCapture implements Capture<ListView> {
                 bmp.recycle();
                 bmp = null;
             }
+            report(bigBitmap);
             return bigBitmap;
         } finally {
             viewList.clear();

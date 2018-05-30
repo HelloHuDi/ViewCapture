@@ -12,7 +12,7 @@ import android.widget.Toast;
  * Created by hd on 2018/2/6 .
  * view demo
  */
-public class MainActivity extends BaseCaptureActivity<View> {
+public class MainActivity extends BaseCaptureActivity {
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {

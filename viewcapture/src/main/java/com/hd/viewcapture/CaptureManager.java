@@ -1,6 +1,7 @@
 package com.hd.viewcapture;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.media.MediaScannerConnection;
@@ -10,10 +11,12 @@ import android.os.Environment;
 import android.os.Handler;
 import android.os.Looper;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.util.Log;
 import android.view.View;
 
 import com.hd.viewcapture.capture.Capture;
+import com.hd.viewcapture.capture.helper.CaptureCallback;
 
 import java.io.BufferedOutputStream;
 import java.io.File;
@@ -52,13 +55,29 @@ public final class CaptureManager<T> {
     Bitmap getBitmap() {
         if (bitmap == null) {
             bitmap = capture.capture(t);
-            if (bitmapProcessor != null && bitmap != null) {
-                Bitmap newBitmap = bitmapProcessor.process(bitmap);
-                recycleBitmap();
-                bitmap = newBitmap;
-            }
+            formatBitmap();
         }
         return bitmap;
+    }
+
+    void getBitmap(@NonNull final CaptureCallback callback) {
+        if (bitmap == null) {
+            getBitmap();
+            if (bitmap == null) {
+                capture.injectCallback(new CaptureCallback() {
+                    @Override
+                    public void report(@Nullable Bitmap bitmap) {
+                        CaptureManager.this.bitmap = bitmap;
+                        formatBitmap();
+                        callback.report(CaptureManager.this.bitmap);
+                    }
+                });
+            } else {
+                callback.report(CaptureManager.this.bitmap);
+            }
+        } else {
+            callback.report(CaptureManager.this.bitmap);
+        }
     }
 
     void setFileNameSuffix(@NonNull String fileNameSuffix) {
@@ -97,17 +116,37 @@ public final class CaptureManager<T> {
 
     public void save() {
         if (Utils.isExternalStorageReady() && Utils.isPermissionGranted(getAppContext())) {
-            AsyncSaveImage asyncSaveBitmap = new AsyncSaveImage(getAppContext(), getBitmap());
-            asyncSaveBitmap.execute();
+            if(t instanceof Activity){
+                getBitmap(new CaptureCallback() {
+                    @Override
+                    public void report(@Nullable Bitmap bitmap) {
+                        AsyncSaveImage asyncSaveBitmap = new AsyncSaveImage(getAppContext(),bitmap);
+                        asyncSaveBitmap.execute();
+                    }
+                });
+            }else{
+                AsyncSaveImage asyncSaveBitmap = new AsyncSaveImage(getAppContext(), getBitmap());
+                asyncSaveBitmap.execute();
+            }
         } else {
             Log.e(TAG, "ViewCapture couldn't save. Make sure permission to write to storage is granted");
             notifyListener(false, null, null);
         }
     }
 
+    private void formatBitmap() {
+        if (bitmapProcessor != null && bitmap != null) {
+            Bitmap newBitmap = bitmapProcessor.process(bitmap);
+            recycleBitmap();
+            bitmap = newBitmap;
+        }
+    }
+
     private Context getAppContext() {
         if (t == null) {
             throw new NullPointerException("current view is null");
+        } else if (t instanceof Activity) {
+            return ((Activity) t).getApplicationContext();
         } else {
             return ((View) t).getContext().getApplicationContext();
         }
@@ -142,7 +181,8 @@ public final class CaptureManager<T> {
     }
 
     public interface BitmapProcessor {
-        @NonNull Bitmap process(Bitmap raw);
+        @NonNull
+        Bitmap process(Bitmap raw);
     }
 
     private void notifyListener(final boolean isSaved, final String path, final Uri uri) {
@@ -208,8 +248,8 @@ public final class CaptureManager<T> {
                     bitmap.compress(Bitmap.CompressFormat.JPEG, jpgQuality, out);
                 }
             } catch (Exception e) {
-                Log.e(TAG, "save bitmap error :"+e);
-            }finally {
+                Log.e(TAG, "save bitmap error :" + e);
+            } finally {
                 MediaScannerConnection.scanFile(context, new String[]{imageFile.toString()}, null, this);
             }
         }

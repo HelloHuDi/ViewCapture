@@ -16,7 +16,7 @@ import com.zhy.adapter.recyclerview.base.ViewHolder;
 
 import java.util.Arrays;
 
-public class RecyclerViewActivity extends BaseCaptureActivity<RecyclerView> {
+public class RecyclerViewActivity extends BaseCaptureActivity {
 
     private RecyclerView recyclerView;
 

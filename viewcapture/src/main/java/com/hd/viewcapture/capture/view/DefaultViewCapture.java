@@ -11,7 +11,7 @@ import com.hd.viewcapture.capture.Capture;
  * Created by hd on 2018/2/6 .
  * View Capture
  */
-public class DefaultViewCapture implements Capture<View> {
+public class DefaultViewCapture extends Capture<View> {
 
     @Override
     public Bitmap capture(@NonNull View view) {
@@ -19,6 +19,7 @@ public class DefaultViewCapture implements Capture<View> {
         Canvas canvas = new Canvas(bitmap);
         view.draw(canvas);
         canvas.setBitmap(null);
+        report(bitmap);
         return bitmap;
     }
 }
